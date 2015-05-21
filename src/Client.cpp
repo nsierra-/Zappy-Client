@@ -1,17 +1,18 @@
-/*             .-'''''-.
-             .'         `.
-            :             :   File       : Client.cpp
-           :               :  Creation   : 2015-05-21 00:44:59
-           :      _/|      :  Last Edit  : 2015-05-21 01:31:10
-            :   =/_/      :   Author     : nsierra-   
-             `._/ |     .'    Mail       : nsierra-@student.42.fr  
-          (   /  ,|...-'
-           \_/^\/||__
-        _/~  `""~`"` \_
-     __/  -'/  `-._ `\_\__
-   /jgs  /-'`  `\   \  \-*/
+//               .-'''''-.
+//             .'         `.
+//            :             :        File       : Client.cpp
+//           :               :       Creation   : 2015-05-21 00:44:59
+//           :      _/|      :       Last Edit  : 2015-05-21 03:17:22
+//            :   =/_/      :        Author     : nsierra-
+//             `._/ |     .'         Mail       : nsierra-@student.42.fr
+//          (   /  ,|...-'
+//           \_/^\/||__
+//        _/~  `""~`"` \_
+//     __/  -'/  `-._ `\_\__
+//   /jgs  /-'`  `\   \  \-
 
 #include "Client.hpp"
+#include <iostream>
 
 Client::Client(unsigned int port, std::string teamName, std::string hostName) :
 	_teamName(teamName),
@@ -20,7 +21,8 @@ Client::Client(unsigned int port, std::string teamName, std::string hostName) :
 
 }
 
-Client::Client(Client const & src)
+Client::Client(Client const & src) :
+    _teamName(src._teamName)
 {
 	*this = src;
 }
@@ -33,16 +35,28 @@ Client::~Client(void)
 Client	&Client::operator=(Client const & rhs)
 {
 	if (this != &rhs)
-	{
-
+    {
+        _network = new Network(*(rhs._network));
 	}
 	return *this;
 }
 
 bool	Client::loop(void)
 {
-    _network->send("lel");
-    _network->send("voir");
-
+    _sendTeamInfo();
+    while (42)
+    {
+    }
     return true;
+}
+
+void    Client::_sendTeamInfo(void)
+{
+    std::string     msg(_network->recieve());
+
+    std::cout << "Msg -> " << msg << std::endl;
+    if (msg == "BIENVENUE\n")
+    {
+        std::cout << _network->send(_teamName) << std::endl;
+    }
 }

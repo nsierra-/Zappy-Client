@@ -1,15 +1,15 @@
-/*             .-'''''-.
-             .'         `.
-            :             :   File       : Network.hpp
-           :               :  Creation   : 2015-05-21 01:03:30
-           :      _/|      :  Last Edit  : 2015-05-21 01:21:48
-            :   =/_/      :   Author     : nsierra-   
-             `._/ |     .'    Mail       : nsierra-@student.42.fr  
-          (   /  ,|...-'
-           \_/^\/||__
-        _/~  `""~`"` \_
-     __/  -'/  `-._ `\_\__
-   /jgs  /-'`  `\   \  \-*/
+//               .-'''''-.
+//             .'         `.
+//            :             :        File       : Network.hpp
+//           :               :       Creation   : 2015-05-21 01:03:30
+//           :      _/|      :       Last Edit  : 2015-05-21 03:14:34
+//            :   =/_/      :        Author     : nsierra-
+//             `._/ |     .'         Mail       : nsierra-@student.42.fr
+//          (   /  ,|...-'
+//           \_/^\/||__
+//        _/~  `""~`"` \_
+//     __/  -'/  `-._ `\_\__
+//   /jgs  /-'`  `\   \  \-
 
 #ifndef NETWORK_HPP
 # define NETWORK_HPP
@@ -27,9 +27,15 @@ class	Network
 		Network &operator=(Network const & rhs);
 
 		bool				isConnected(void);
-		int					send(const std::string &);
+		std::string			send(const std::string &);
+		std::string			recieve(void);
+		std::string			getHostName();
+		unsigned int		getPort();
 
 	private:
+
+		static const size_t	BUFF_SIZE;
+
 		std::string			_hostName;
 		unsigned int		_port;
 		bool				_connected;
@@ -38,6 +44,7 @@ class	Network
 		size_t				_sockaddr_len;
 
 		void				_connect(void);
+		void				_close(void);
 		void				_initConnection(void);
 };
 

@@ -1,15 +1,15 @@
-/*             .-'''''-.
-             .'         `.
-            :             :        File       : main.cpp
-           :               :       Creation   : 2015-05-21 01:45:00
-           :      _/|      :       Last Edit  : 2015-05-21 01:48:22
-            :   =/_/      :        Author     : nsierra-   
-             `._/ |     .'         Mail       : nsierra-@student.42.fr  
-          (   /  ,|...-'
-           \_/^\/||__
-        _/~  `""~`"` \_
-     __/  -'/  `-._ `\_\__
-   /jgs  /-'`  `\   \  \-*/
+//               .-'''''-.
+//             .'         `.
+//            :             :        File       : main.cpp
+//           :               :       Creation   : 2015-05-21 01:45:00
+//           :      _/|      :       Last Edit  : 2015-05-21 02:46:47
+//            :   =/_/      :        Author     : nsierra-
+//             `._/ |     .'         Mail       : nsierra-@student.42.fr
+//          (   /  ,|...-'
+//           \_/^\/||__
+//        _/~  `""~`"` \_
+//     __/  -'/  `-._ `\_\__
+//   /jgs  /-'`  `\   \  \-
 
 #include "Client.hpp"
 #include <stdlib.h>
