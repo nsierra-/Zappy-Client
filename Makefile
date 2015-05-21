@@ -3,8 +3,8 @@
 #            :             :   File       : Makefile
 #           :               :  Creation   : 2015-05-17 02:38:33
 #           :      _/|      :  Last Edit  : 2015-05-21 01:31:43
-#            :   =/_/      :   Author     : nsierra-   
-#             `._/ |     .'    Mail       : nsierra-@student.42.fr  
+#            :   =/_/      :   Author     : nsierra-
+#             `._/ |     .'    Mail       : nsierra-@student.42.fr
 #          (   /  ,|...-'
 #           \_/^\/||__
 #        _/~  `""~`"` \_
@@ -23,15 +23,15 @@ CLASSES				=	Client \
 
 INTERF_SRC_SUFFIX	=	.cpp
 INTERF_INC_SUFFIX	=	.hpp
-INTERFACES			=	
+INTERFACES			=
 
 ABSTR_SRC_SUFFIX	=	.cpp
 ABSTR_INC_SUFFIX	=	.hpp
-ABSTRACTS			=	
+ABSTRACTS			=
 
 TEMPL_SRC_SUFFIX	=	.cpp
 TEMPL_INC_SUFFIX	=	.hpp
-TEMPLATES			=	
+TEMPLATES			=
 
 INC_FILES			=	$(addsuffix $(CLASS_INC_SUFFIX), $(CLASSES))		\
 						$(addsuffix $(INTERF_INC_SUFFIX), $(INTERFACES))	\
@@ -49,12 +49,12 @@ SRC					=	$(addprefix $(SRC_DIR), $(SRC_FILES))
 INC					=	$(addprefix $(INC_DIR), $(INC_FILES))
 OBJ					=	$(SRC:.cpp=.o)
 
-CC					=	clang++
+CC					=	/usr/bin/gcc
 MAKE				=	make
 
-CFLAGS				=	-Wall -Wextra -Werror -std=c++11 -stdlib=libc++ #-g3
+CFLAGS				=	-Wall -Wextra -Werror -std=c++11 #-stdlib=libc++ #-g3
 IFLAGS				=	-I./$(INC_DIR)
-LDFLAGS				=	
+LDFLAGS				=
 
 $(NAME):			$(INC) $(OBJ)
 					$(CC) $(LDFLAGS) $(OBJ) -o $@

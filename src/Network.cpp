@@ -106,7 +106,7 @@ std::string		Network::send(const std::string &message)
 {
 	if (_connected)
 	{
-		if (write(_socket_connect, message.c_str(), message.size()) < 0)
+		if (write(_socket_connect, (message + "\n").c_str(), message.size()) < 0)
 		{
 			std::cout << strerror(errno) << std::endl;
 			return "ko";
@@ -114,7 +114,7 @@ std::string		Network::send(const std::string &message)
 		return recieve();
 	}
 	std::cout
-		<< "Couldn't send message \"" << message 
+		<< "Couldn't send message \"" << message
 		<< "\" ! Not connected." << std::endl
 	;
 	return "ko";
