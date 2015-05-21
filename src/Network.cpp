@@ -17,6 +17,7 @@
 #include <unistd.h>
 #include <errno.h>
 #include <iostream>
+#include <string>
 #include <strings.h>
 #include <string.h>
 
@@ -104,7 +105,7 @@ std::string		Network::recieve(void)
 	return "ko";
 }
 
-std::string		Network::send(std::string &message)
+std::string		Network::send(const std::string &message)
 {
 	if (_connected)
 	{
