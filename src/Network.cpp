@@ -104,7 +104,7 @@ std::string		Network::recieve(void)
 	return "ko";
 }
 
-std::string		Network::send(const std::string &message)
+std::string		Network::send(std::string &message)
 {
 	if (_connected)
 	{

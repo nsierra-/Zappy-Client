@@ -27,7 +27,7 @@ class	Network
 		Network &operator=(Network const & rhs);
 
 		bool				isConnected(void);
-		std::string			send(const std::string &);
+		std::string			send(std::string &);
 		std::string			recieve(void);
 		std::string			getHostName();
 		unsigned int		getPort();
