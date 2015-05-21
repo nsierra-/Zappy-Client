@@ -17,8 +17,8 @@
 #include <unistd.h>
 #include <errno.h>
 #include <iostream>
-#include <cstrings>
-#include <cstring>
+#include <strings.h>
+#include <string.h>
 
 const size_t	Network::BUFF_SIZE = 2048;
 
