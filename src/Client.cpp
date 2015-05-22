@@ -50,13 +50,13 @@ bool	Client::loop(void)
     return true;
 }
 
-void    Client::_sendTeamInfo(void)4242
+void    Client::_sendTeamInfo(void)
 {
     std::string     msg(_network->recieve());
 
     std::cout << "Msg -> " << msg << std::endl;
     if (msg == "BIENVENUE\n")
     {
-        std::cout << _network->send(_teamName) << std::endl;
+        std::cout << _network->send(_teamName + "\n") << std::endl;
     }
 }
