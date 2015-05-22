@@ -2,7 +2,7 @@
 //             .'         `.
 //            :             :        File       : main.cpp
 //           :               :       Creation   : 2015-05-21 01:45:00
-//           :      _/|      :       Last Edit  : 2015-05-21 02:46:47
+//           :      _/|      :       Last Edit  : 2015-05-22 15:11:54
 //            :   =/_/      :        Author     : nsierra-
 //             `._/ |     .'         Mail       : nsierra-@student.42.fr
 //          (   /  ,|...-'
@@ -13,17 +13,60 @@
 
 #include "Client.hpp"
 #include <stdlib.h>
+#include <unistd.h>
 #include <iostream>
 
-int			main(int ac, const char ** av)
+bool		retrieveOptions(int ac,
+							char * const * av,
+							std::string &host,
+							std::string &team,
+							unsigned int &port)
 {
-	if (ac != 4)
+	int		c;
+	extern char *optarg;
+
+	opterr = 0;
+	host = "127.0.0.1";
+	while ((c = getopt(ac, av, "n:p:h::")) != -1)
 	{
-		std::cout << "EHO" << std::endl;
+		switch (c)
+		{
+			case 'n':
+				team = optarg;
+				break ;
+			case 'p':
+				port = atoi(optarg);
+				break ;
+			case 'h':
+				host = optarg;
+				break ;
+			case '?':
+				if (optopt == 'n')
+					std::cout << "Please specify a team name using -n" << std::endl;
+				else if (optopt == 'p')
+					std::cout << "Please specify a port using -p" << std::endl;
+				else
+					std::cout << "Unknown option : " << (char)optopt << std::endl;
+				return false;
+			default:
+				abort();
+		}
+	}
+	std::cout << "AHA" << std::endl;
+	return true;
+}
+
+int			main(int ac, char * const * av)
+{
+	std::string		host;
+	std::string		team;
+	unsigned int	port;
+
+	if (ac != 4 || !retrieveOptions(ac, av, host, team, port))
+	{
+		std::cout << "Usage ./client [port] [hostname] [team name]" << std::endl;
 		return 0;
 	}
-
-	Client	c(atoi(av[1]), av[2], av[3]);
-
+	Client	c(port, team, host);
 	return c.loop();
 }
