@@ -20,6 +20,7 @@
 #include <string>
 #include <strings.h>
 #include <string.h>
+#include <sys/socket.h>
 
 const size_t	Network::BUFF_SIZE = 2048;
 
@@ -109,7 +110,7 @@ std::string		Network::send(const std::string &message)
 {
 	if (_connected)
 	{
-		if (write(_socket_connect, (message + "\n").c_str(), message.size()) < 0)
+		if (::send(_socket_connect, message.c_str(), message.size(), 0) < 0)
 		{
 			std::cout << strerror(errno) << std::endl;
 			return "ko";
