@@ -49,10 +49,10 @@ SRC					=	$(addprefix $(SRC_DIR), $(SRC_FILES))
 INC					=	$(addprefix $(INC_DIR), $(INC_FILES))
 OBJ					=	$(SRC:.cpp=.o)
 
-CC					=	/usr/bin/gcc
+CC					=	clang++
 MAKE				=	make
 
-CFLAGS				=	-Wall -Wextra -Werror -std=c++11 #-stdlib=libc++ #-g3
+CFLAGS				=	-Wall -Wextra -Werror -std=c++11 -stdlib=libc++ #-g3
 IFLAGS				=	-I./$(INC_DIR)
 LDFLAGS				=
 
