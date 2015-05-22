@@ -15,6 +15,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <iostream>
+#include <ctype.h>
+#include <stdlib.h>
 
 bool		retrieveOptions(int ac,
 							char * const * av,
@@ -26,21 +28,31 @@ bool		retrieveOptions(int ac,
 	extern char *optarg;
 
 	opterr = 0;
-	while ((c = getopt(ac, av, "n:p:h::")) != -1)
+	if (strncmp(av[1], "-n", 2) != 0 || strncmp(av[3], "-p", 2) != 0)
 	{
-		std::cout << "toto" << std::endl;
+		return false;
+	}
+	while ((c = getopt(ac, av, ":n:p:h::")) != -1)
+	{
 		switch (c)
 		{
 			case 'n':
 				team = optarg;
 				break ;
 			case 'p':
+			for( size_t i = 0; i < strlen(optarg); i++)
+				if (!isdigit(optarg[i]))
+				{
+					std::cout << "Please specify a port using -p" << std::endl;
+					return false;
+				}
 				port = atoi(optarg);
 				break ;
 			case 'h':
 				host = optarg;
 				break ;
 			case '?':
+				std::cout << "dfko''oingjkdfbghiprbvjekjv;bkr" << std::endl;
 				if (optopt == 'n')
 					std::cout << "Please specify a team name using -n" << std::endl;
 				else if (optopt == 'p')
@@ -62,15 +74,11 @@ int			main(int ac, char * const * av)
 	unsigned int	port;
 
 	host = "127.0.0.1";
-	if (ac < 5)
+	if (ac < 5 || !retrieveOptions(ac, av, host, team, port))
 	{
 		std::cout << "Usage: ./client -n <team> -p <port> [-h <hostname>]" << std::endl;
 		return 0;
 	}
-	if (retrieveOptions(ac, av, host, team, port))
-	{
-		Client	c(port, team, host);
-		return c.loop();
-	}	
-	return 0;
+	Client	c(port, team, host);
+	return c.loop();
 }

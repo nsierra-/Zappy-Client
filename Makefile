@@ -52,7 +52,7 @@ OBJ					=	$(SRC:.cpp=.o)
 CC					=	clang++
 MAKE				=	make
 
-CFLAGS				=	-Wall -Wextra -Werror -std=c++11 -stdlib=libc++ #-g3
+CFLAGS				=	-Wall -Wextra -Werror -std=c++11 -stdlib=libc++ -g3
 IFLAGS				=	-I./$(INC_DIR)
 LDFLAGS				=
 
