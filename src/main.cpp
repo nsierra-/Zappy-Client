@@ -26,9 +26,9 @@ bool		retrieveOptions(int ac,
 	extern char *optarg;
 
 	opterr = 0;
-	host = "127.0.0.1";
 	while ((c = getopt(ac, av, "n:p:h::")) != -1)
 	{
+		std::cout << "toto" << std::endl;
 		switch (c)
 		{
 			case 'n':
@@ -52,7 +52,6 @@ bool		retrieveOptions(int ac,
 				abort();
 		}
 	}
-	std::cout << "AHA" << std::endl;
 	return true;
 }
 
@@ -62,11 +61,16 @@ int			main(int ac, char * const * av)
 	std::string		team;
 	unsigned int	port;
 
-	if (ac != 4 || !retrieveOptions(ac, av, host, team, port))
+	host = "127.0.0.1";
+	if (ac < 5)
 	{
-		std::cout << "Usage ./client [port] [hostname] [team name]" << std::endl;
+		std::cout << "Usage: ./client -n <team> -p <port> [-h <hostname>]" << std::endl;
 		return 0;
 	}
-	Client	c(port, team, host);
-	return c.loop();
+	if (retrieveOptions(ac, av, host, team, port))
+	{
+		Client	c(port, team, host);
+		return c.loop();
+	}	
+	return 0;
 }
