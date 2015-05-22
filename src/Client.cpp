@@ -50,7 +50,7 @@ bool	Client::loop(void)
     return true;
 }
 
-void    Client::_sendTeamInfo(void)
+void    Client::_sendTeamInfo(void)4242
 {
     std::string     msg(_network->recieve());
 
