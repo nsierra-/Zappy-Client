@@ -2,7 +2,7 @@
 #             .'         `.
 #            :             :   File       : Makefile
 #           :               :  Creation   : 2015-05-17 02:38:33
-#           :      _/|      :  Last Edit  : 2015-05-21 01:31:43
+#           :      _/|      :  Last Edit  : 2015-05-23 00:59:09
 #            :   =/_/      :   Author     : nsierra-
 #             `._/ |     .'    Mail       : nsierra-@student.42.fr
 #          (   /  ,|...-'
@@ -36,7 +36,8 @@ TEMPLATES			=
 INC_FILES			=	$(addsuffix $(CLASS_INC_SUFFIX), $(CLASSES))		\
 						$(addsuffix $(INTERF_INC_SUFFIX), $(INTERFACES))	\
 						$(addsuffix $(ABSTR_INC_SUFFIX), $(ABSTRACTS))		\
-						$(addsuffix $(TEMPL_INC_SUFFIX), $(TEMPLATES))
+						$(addsuffix $(TEMPL_INC_SUFFIX), $(TEMPLATES)) 		\
+						ErrorMsg.hpp
 
 SRC_FILES			=	$(addsuffix $(CLASS_SRC_SUFFIX), $(CLASSES))		\
 						$(addsuffix $(INTERF_SRC_SUFFIX), $(INTERFACES))	\
