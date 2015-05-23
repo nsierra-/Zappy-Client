@@ -2,7 +2,7 @@
 //             .'         `.
 //            :             :        File       : Network.cpp
 //           :               :       Creation   : 2015-05-21 01:08:12
-//           :      _/|      :       Last Edit  : 2015-05-21 03:20:07
+//           :      _/|      :       Last Edit  : 2015-05-23 03:57:36
 //            :   =/_/      :        Author     : nsierra-
 //             `._/ |     .'         Mail       : nsierra-@student.42.fr
 //          (   /  ,|...-'
@@ -12,6 +12,7 @@
 //   /jgs  /-'`  `\   \  \-
 
 #include "Network.hpp"
+#include "ErrorMsg.hpp"
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <unistd.h>
@@ -30,6 +31,8 @@ Network::Network(unsigned int port, std::string hostName) :
 	_connected(false)
 {
 	_connect();
+	if (_connected)
+		std::cout << "Connected to server." << std::endl;
 }
 
 Network::Network(Network const & src)
@@ -60,7 +63,7 @@ void	Network::_initConnection(void)
 {
 	if ((_socket_connect = socket(AF_INET, SOCK_STREAM, 0)) < 0)
 	{
-		std::cout << "Socket creation error !" << std::endl;
+		std::cout << E_SOCKET_CREATION << std::endl;
 		return ;
 	}
 	_sockaddr_connect.sin_family = AF_INET;
@@ -74,7 +77,7 @@ void	Network::_connect(void)
 {
 	_initConnection();
 	if (connect(_socket_connect, (struct sockaddr *)&_sockaddr_connect, _sockaddr_len) < 0)
-		std::cout << "Socket connection error !\n" << std::endl;
+		std::cout << E_SOCKET_CONNECTION << std::endl;
 	else
 		_connected = true;
 }
@@ -101,6 +104,7 @@ std::string		Network::recieve(void)
 			_close();
 			break ;
 		default:
+			// std::cout << buf << std::endl;
 			return buf;
 	}
 	return "ko";

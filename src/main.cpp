@@ -2,7 +2,7 @@
 //             .'         `.
 //            :             :        File       : main.cpp
 //           :               :       Creation   : 2015-05-21 01:45:00
-//           :      _/|      :       Last Edit  : 2015-05-22 15:11:54
+//           :      _/|      :       Last Edit  : 2015-05-22 16:25:03
 //            :   =/_/      :        Author     : nsierra-
 //             `._/ |     .'         Mail       : nsierra-@student.42.fr
 //          (   /  ,|...-'
@@ -29,9 +29,7 @@ bool		retrieveOptions(int ac,
 
 	opterr = 0;
 	if (strncmp(av[1], "-n", 2) != 0 || strncmp(av[3], "-p", 2) != 0)
-	{
 		return false;
-	}
 	while ((c = getopt(ac, av, ":n:p:h::")) != -1)
 	{
 		switch (c)
@@ -40,11 +38,13 @@ bool		retrieveOptions(int ac,
 				team = optarg;
 				break ;
 			case 'p':
-			for( size_t i = 0; i < strlen(optarg); i++)
-				if (!isdigit(optarg[i]))
+				for (size_t i = 0; i < strlen(optarg); i++)
 				{
-					std::cout << "Please specify a port using -p" << std::endl;
-					return false;
+					if (!isdigit(optarg[i]))
+					{
+						std::cout << "Please specify a port using -p" << std::endl;
+						return false;
+					}
 				}
 				port = atoi(optarg);
 				break ;
@@ -52,7 +52,6 @@ bool		retrieveOptions(int ac,
 				host = optarg;
 				break ;
 			case '?':
-				std::cout << "dfko''oingjkdfbghiprbvjekjv;bkr" << std::endl;
 				if (optopt == 'n')
 					std::cout << "Please specify a team name using -n" << std::endl;
 				else if (optopt == 'p')
