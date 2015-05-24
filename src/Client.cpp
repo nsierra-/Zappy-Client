@@ -53,11 +53,17 @@ bool	Client::loop(void)
 	_loadServerInfos(_sendTeamInfo());
 	while (42)
 	{
+		msg = _network->send("connect_nbr\n");
+		std::cout << msg << std::endl;
 		if (msg == "mort\n")
 			exit(0);
-		if (strtol(_network->send("connect_nbr\n").c_str(), NULL, 10))
-			_forkstem();
-		msg = _network->recieve();
+		if (atoi(msg.c_str()))
+		{
+			std::stringstream port;
+			port << _network->getPort();
+			char * arg[7] = {(char *)"./client", (char *)"-n", (char *)_teamName.c_str(), (char *)"-p", (char *)port.str().c_str(), (char *)"-h", (char *)_network->getHostName().c_str()};
+			execve("./client",arg, NULL);
+		}
 	}
 	return true;
 }
