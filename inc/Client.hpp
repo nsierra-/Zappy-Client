@@ -16,6 +16,7 @@
 
 # include <string>
 # include <regex>
+# include <fstream>
 # include "Network.hpp"
 
 class	Client
@@ -37,6 +38,7 @@ class	Client
 	unsigned int			_availableConnections;
 	unsigned int			_mapX;
 	unsigned int			_mapY;
+	std::ofstream 			_ofs;
 	// unsigned int			_timeRemaining;
 
 	std::string				_sendTeamInfo(void) const;

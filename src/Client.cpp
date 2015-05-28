@@ -16,27 +16,31 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <sstream>
+#include <fstream>
 #include <iostream>
 #include <regex>
 
 const std::regex	Client::_serverInfosFormat("(\\d+)\\n(\\d+) (\\d+)\\n");
 
 Client::Client(unsigned int port, std::string teamName, std::string hostName) :
-	_teamName(teamName),
-	_network(new Network(port, hostName))
+_teamName(teamName),
+_network(new Network(port, hostName))
 {
-
+	std::stringstream name;
+	name << "debug/" << getpid();
+	_ofs.open(name.str().c_str());
 }
 
 Client::Client(Client const & src) :
-	_teamName(src._teamName)
+_teamName(src._teamName)
 {
 	*this = src;
 }
 
 Client::~Client(void)
 {
-  delete _network;
+	_ofs.close();
+	delete _network;
 }
 
 Client	&Client::operator=(Client const & rhs)
@@ -49,21 +53,31 @@ Client	&Client::operator=(Client const & rhs)
 bool	Client::loop(void)
 {
 	std::string msg;
-
+	
 	_loadServerInfos(_sendTeamInfo());
 	while (42)
 	{
-		msg = _network->send("connect_nbr\n");
-		std::cout << msg << std::endl;
 		if (msg == "mort\n")
 			exit(0);
-		if (atoi(msg.c_str()))
+		if (strtol(_network->send("connect_nbr\n").c_str(), NULL, 10))
+			_forkstem();
+		else 
 		{
-			std::stringstream port;
-			port << _network->getPort();
-			char * arg[7] = {(char *)"./client", (char *)"-n", (char *)_teamName.c_str(), (char *)"-p", (char *)port.str().c_str(), (char *)"-h", (char *)_network->getHostName().c_str()};
-			execve("./client",arg, NULL);
+			msg = _network->recieve();	
+		// msg = _network->send("connect_nbr\n");
+			_ofs << getpid() << " recoit " << msg << std::endl;
 		}
+
+		// if (msg == "mort\n")
+		// 	exit(0);
+		// if (strtol(_network->send("connect_nbr\n").c_str(), NULL, 10))
+		// {
+		// 	_forkstem();
+		// 	// std::stringstream port;
+		// 	// port << _network->getPort();
+		// 	// char * arg[7] = {(char *)"./client", (char *)"-n", (char *)_teamName.c_str(), (char *)"-p", (char *)port.str().c_str(), (char *)"-h", (char *)_network->getHostName().c_str()};
+		// 	// execv("./client",arg);
+		// }
 	}
 	return true;
 }
@@ -77,9 +91,9 @@ void			Client::_forkstem(void)
 		std::stringstream	cmd;
 
 		cmd
-			<< "./client -n " << _teamName
-			<< " -p " << _network->getPort()
-			<< " -h " << _network->getHostName()
+		<< "./client -n " << _teamName
+		<< " -p " << _network->getPort()
+		<< " -h " << _network->getHostName()
 		;
 		system(cmd.str().c_str());
 	}
