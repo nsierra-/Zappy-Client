@@ -32,7 +32,7 @@ Network::Network(unsigned int port, std::string hostName) :
 {
 	_connect();
 	if (_connected)
-		std::cout << "Connected to server." << std::endl;
+		std::cout << getpid() << " dit " << "Connected to server." << std::endl;
 }
 
 Network::Network(Network const & src)
@@ -125,6 +125,7 @@ std::string		Network::send(const std::string &message)
 		<< "Couldn't send message \"" << message
 		<< "\" ! Not connected." << std::endl
 	;
+	exit(EXIT_FAILURE);
 	return "ko";
 }
 
