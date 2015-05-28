@@ -17,6 +17,7 @@
 # include <string>
 
 static const std::string E_UNUSUAL_SERVER_BEHAVIOR = "Server seems odd... Aborting.";
+static const std::string E_SERVER_UNAVAILABLE = "Server seems unavailable. Aborting.";
 static const std::string E_SOCKET_CREATION = "Socket creation error !";
 static const std::string E_SOCKET_CONNECTION = "Socket connection error !\n";
 static const std::string E_FORK = "Fork error. Aborting.";

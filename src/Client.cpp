@@ -64,20 +64,8 @@ bool	Client::loop(void)
 		else 
 		{
 			msg = _network->recieve();	
-		// msg = _network->send("connect_nbr\n");
 			_ofs << getpid() << " recoit " << msg << std::endl;
 		}
-
-		// if (msg == "mort\n")
-		// 	exit(0);
-		// if (strtol(_network->send("connect_nbr\n").c_str(), NULL, 10))
-		// {
-		// 	_forkstem();
-		// 	// std::stringstream port;
-		// 	// port << _network->getPort();
-		// 	// char * arg[7] = {(char *)"./client", (char *)"-n", (char *)_teamName.c_str(), (char *)"-p", (char *)port.str().c_str(), (char *)"-h", (char *)_network->getHostName().c_str()};
-		// 	// execv("./client",arg);
-		// }
 	}
 	return true;
 }
@@ -91,9 +79,9 @@ void			Client::_forkstem(void)
 		std::stringstream	cmd;
 
 		cmd
-		<< "./client -n " << _teamName
-		<< " -p " << _network->getPort()
-		<< " -h " << _network->getHostName()
+			<< "./client -n " << _teamName
+			<< " -p " << _network->getPort()
+			<< " -h " << _network->getHostName()
 		;
 		system(cmd.str().c_str());
 	}
@@ -101,7 +89,7 @@ void			Client::_forkstem(void)
 		return ;
 	else
 	{
-		std::cout << E_FORK << std::endl;
+		_ofs << E_FORK << std::endl;
 		exit(EXIT_FAILURE);
 	}
 }
@@ -111,10 +99,11 @@ void			Client::_loadServerInfos(const std::string &infos)
 	std::smatch	sm;
 	std::string	tmp;
 
+	_ofs << infos << std::endl;
 	std::regex_match(infos, sm, _serverInfosFormat);
 	if (sm.size() != 4)
 	{
-		std::cout << E_UNUSUAL_SERVER_BEHAVIOR << std::endl;
+		_ofs << E_UNUSUAL_SERVER_BEHAVIOR << std::endl;
 		exit(EXIT_FAILURE);
 	}
 	tmp = sm[1],  _availableConnections = strtol(tmp.c_str(), NULL, 10);
@@ -122,15 +111,16 @@ void			Client::_loadServerInfos(const std::string &infos)
 	tmp = sm[3],  _mapY = strtol(tmp.c_str(), NULL, 10);
 }
 
-std::string    Client::_sendTeamInfo(void) const
+std::string    Client::_sendTeamInfo(void)
 {
 	std::string     msg(_network->recieve());
 
+	_ofs << msg << std::endl;
 	if (msg == "BIENVENUE\n")
 		return _network->send(_teamName + "\n");
 	else
 	{
-		std::cout << E_UNUSUAL_SERVER_BEHAVIOR << std::endl;
+		_ofs << E_UNUSUAL_SERVER_BEHAVIOR << std::endl;
 		exit(EXIT_FAILURE);
 	}
 }
