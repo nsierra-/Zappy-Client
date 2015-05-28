@@ -41,7 +41,7 @@ class	Client
 	std::ofstream 			_ofs;
 	// unsigned int			_timeRemaining;
 
-	std::string				_sendTeamInfo(void) const;
+	std::string				_sendTeamInfo(void);
 	void					_loadServerInfos(const std::string &);
 	void					_forkstem(void);
 };
