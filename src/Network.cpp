@@ -2,7 +2,7 @@
 //             .'         `.
 //            :             :        File       : Network.cpp
 //           :               :       Creation   : 2015-05-21 01:08:12
-//           :      _/|      :       Last Edit  : 2015-05-29 17:43:41
+//           :      _/|      :       Last Edit  : 2015-05-29 21:30:57
 //            :   =/_/      :        Author     : nsierra-
 //             `._/ |     .'         Mail       : nsierra-@student.42.fr
 //          (   /  ,|...-'
@@ -25,7 +25,8 @@
 
 const size_t	Network::BUFF_SIZE = 2048;
 
-Network::Network(unsigned int port, std::string hostName) :
+Network::Network(Client *client, unsigned int port, std::string hostName) :
+	_client(client),
 	_hostName(hostName),
 	_port(port),
 	_connected(false)
@@ -35,7 +36,8 @@ Network::Network(unsigned int port, std::string hostName) :
 		std::cout << getpid() << " dit " << "Connected to server." << std::endl;
 }
 
-Network::Network(Network const & src)
+Network::Network(Network const & src) :
+	_client(src._client)
 {
 	*this = src;
 }
@@ -92,7 +94,7 @@ void	Network::close(void)
 std::string		Network::recieve(void)
 {
 	ssize_t		ret;
-	char		buf[BUFF_SIZE] = { '\0' };
+	char		buf[BUFF_SIZE] = { '.' };
 
 	ret = recv(_socket_connect, buf, BUFF_SIZE - 1, 0);
 	switch (ret)
@@ -104,7 +106,16 @@ std::string		Network::recieve(void)
 			this->close();
 			break ;
 		default:
-			// std::cout << buf << std::endl;
+			_client->printDebug(buf);
+
+			if (!strncmp(buf, "mort\n", 5))
+				_client->hasDied();
+			else if (!strncmp(buf, "message ", 7))
+			{
+				_client->recieveBroadcast(buf);
+				_client->printDebug("Broadcast recieved ! Recieving again...");
+				return recieve();
+			}
 			return buf;
 	}
 	return "ko";
