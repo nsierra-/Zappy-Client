@@ -73,10 +73,14 @@ bool	Client::loop(void)
 	while (42)
 	{
 		if (strtol(_network->send("connect_nbr\n").c_str(), NULL, 10))
+		{
+			printDebug("FORKSTEN");
 			_forkstem();
+		}
 		else 
 		{
 			_ia();
+			
 			_network->recieve();
 		}
 	}
@@ -103,7 +107,33 @@ void	Client::hasDied(void)
 
 void	Client::recieveBroadcast(const std::string & msg)
 {
+	//regex parse msg
+	//	 message
+	//	 case
+	//	 content
 	(void)msg;
+		// switch (atoi(case))
+		// {
+		// 	case 1:
+		// 		_move(UP);
+		// 		break;
+		// 	case 2:
+		// 		break;
+		// 	case 3:
+		// 		break;
+		// 	case 4:
+		// 		break;
+		// 	case 5:
+		// 		break;
+		// 	case 6:
+		// 		break;
+		// 	case 7:
+		// 		break;
+		// 	case 8:
+		// 		break;
+		// 	default:
+		// 		break;
+		// }
 }
 
 void	Client::_ia(void)
@@ -116,6 +146,7 @@ void	Client::_ia(void)
 		}
 		else
 			_composfind(_level);
+		// play_move()
 }
 
 void			Client::_search(void)
@@ -127,28 +158,7 @@ void			Client::_search(void)
 	// {
 	// 	_broadcast("incantation level " + _level + "\n");
 	// 	dir = _network->recieve();
-	// 	// switch (atoi(dir.c_str()))
-	// 	// {
-	// 	// 	case 1:
-	// 	// 		_move(UP);
-	// 	// 		break;
-	// 	// 	case 2:
-	// 	// 		break;
-	// 	// 	case 3:
-	// 	// 		break;
-	// 	// 	case 4:
-	// 	// 		break;
-	// 	// 	case 5:
-	// 	// 		break;
-	// 	// 	case 6:
-	// 	// 		break;
-	// 	// 	case 7:
-	// 	// 		break;
-	// 	// 	case 8:
-	// 	// 		break;
-	// 	// 	default:
-	// 	// 		break;
-	// 	// }
+
 	// }
 }
 
@@ -163,6 +173,21 @@ int				Client::_compos(int level)
 {
 	if (level == 1)
 		return 1;
+	// tab data;
+	// if (level == 1)
+	// {
+	// 	if (in inventory)
+	// 	{
+	// 		drop();
+	// 		return 1;
+	// 	}
+	// 	data = _see();
+	// 	if data[0][la compos]
+	// 		return 1;
+	// 	else
+	// 		return 0;
+
+	// }
 	//cmp compos needed vs inventory
 	return 0;
 }
@@ -176,7 +201,6 @@ void			Client::_forkstem(void)
 		_network->close();
 		Client	c(_network->getPort(), _teamName, _network->getHostName());
 		c.loop();
-		// system(cmd.str().c_str());
 	}
 	else if (pid > 0)
 		return ;
