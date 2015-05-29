@@ -2,7 +2,7 @@
 //             .'         `.
 //            :             :        File       : Client.hpp
 //           :               :       Creation   : 2015-05-21 00:43:58
-//           :      _/|      :       Last Edit  : 2015-05-29 17:35:11
+//           :      _/|      :       Last Edit  : 2015-05-29 19:23:34
 //            :   =/_/      :        Author     : nsierra-
 //             `._/ |     .'         Mail       : nsierra-@student.42.fr
 //          (   /  ,|...-'
@@ -20,6 +20,8 @@
 # include <fstream>
 # include "Network.hpp"
 
+class Network;
+
 class	Client
 {
 	public:
@@ -31,6 +33,10 @@ class	Client
 		Client &operator=(Client const & rhs);
 
 	bool					loop(void);
+	void					hasDied(void);
+	void					recieveBroadcast(const std::string &);
+
+	void					printDebug(const std::string &);
 
   private:
 
