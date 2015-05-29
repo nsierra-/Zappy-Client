@@ -2,7 +2,7 @@
 //             .'         `.
 //            :             :        File       : Network.cpp
 //           :               :       Creation   : 2015-05-21 01:08:12
-//           :      _/|      :       Last Edit  : 2015-05-23 03:57:36
+//           :      _/|      :       Last Edit  : 2015-05-29 17:43:41
 //            :   =/_/      :        Author     : nsierra-
 //             `._/ |     .'         Mail       : nsierra-@student.42.fr
 //          (   /  ,|...-'
@@ -42,7 +42,7 @@ Network::Network(Network const & src)
 
 Network::~Network(void)
 {
-	_close();
+	this->close();
 }
 
 Network	&Network::operator=(Network const & rhs)
@@ -82,10 +82,10 @@ void	Network::_connect(void)
 		_connected = true;
 }
 
-void	Network::_close(void)
+void	Network::close(void)
 {
 	if (_connected)
-		close(_socket_connect);
+		::close(_socket_connect);
 	_connected = false;
 }
 
@@ -101,7 +101,7 @@ std::string		Network::recieve(void)
 			std::cout  << strerror(errno) << std::endl;
 			break ;
 		case 0:
-			_close();
+			this->close();
 			break ;
 		default:
 			// std::cout << buf << std::endl;

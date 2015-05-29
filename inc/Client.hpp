@@ -2,7 +2,7 @@
 //             .'         `.
 //            :             :        File       : Client.hpp
 //           :               :       Creation   : 2015-05-21 00:43:58
-//           :      _/|      :       Last Edit  : 2015-05-29 17:12:40
+//           :      _/|      :       Last Edit  : 2015-05-29 17:35:11
 //            :   =/_/      :        Author     : nsierra-
 //             `._/ |     .'         Mail       : nsierra-@student.42.fr
 //          (   /  ,|...-'
@@ -70,6 +70,9 @@ class	Client
 	void					_broadcast(const std::string &);
 	void					_incantation(void);
 	void					_egg(void);
+	int						_compos(int);
+	void					_composfind(int);
+	void					_search(void);
 };
 
 #endif /* CLIENT_HPP */

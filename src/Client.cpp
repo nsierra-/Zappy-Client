@@ -2,7 +2,7 @@
 //             .'         `.
 //            :             :        File       : Client.cpp
 //           :               :       Creation   : 2015-05-21 00:44:59
-//           :      _/|      :       Last Edit  : 2015-05-29 17:10:35
+//           :      _/|      :       Last Edit  : 2015-05-29 17:47:12
 //            :   =/_/      :        Author     : nsierra-
 //             `._/ |     .'         Mail       : nsierra-@student.42.fr
 //          (   /  ,|...-'
@@ -87,7 +87,63 @@ bool	Client::loop(void)
 
 void	Client::_ia(void)
 {
+		if (_compos(_level) && _inventory["nourriture"] > 4)
+		{
+			if (_level > 1)
+				_search();
+			_incantation();			
+		}
+		else
+			_composfind(_level);
+}
 
+void			Client::_search(void)
+{
+	// std::string dir;
+	// int 		players;
+
+	// while (players != nb_player)
+	// {
+	// 	_broadcast("incantation level " + _level + "\n");
+	// 	dir = _network->recieve();
+	// 	// switch (atoi(dir.c_str()))
+	// 	// {
+	// 	// 	case 1:
+	// 	// 		_move(UP);
+	// 	// 		break;
+	// 	// 	case 2:
+	// 	// 		break;
+	// 	// 	case 3:
+	// 	// 		break;
+	// 	// 	case 4:
+	// 	// 		break;
+	// 	// 	case 5:
+	// 	// 		break;
+	// 	// 	case 6:
+	// 	// 		break;
+	// 	// 	case 7:
+	// 	// 		break;
+	// 	// 	case 8:
+	// 	// 		break;
+	// 	// 	default:
+	// 	// 		break;
+	// 	// }
+	// }
+}
+
+void			Client::_composfind(int level)
+{
+	(void)level;
+	//if nourriture take nourriture
+	//take compos for all level
+}
+
+int				Client::_compos(int level)
+{
+	if (level == 1)
+		return 1;
+	//cmp compos needed vs inventory
+	return 0;
 }
 
 void			Client::_forkstem(void)
@@ -96,14 +152,10 @@ void			Client::_forkstem(void)
 
 	if (pid == 0)
 	{
-		std::stringstream	cmd;
-
-		cmd
-			<< "./client -n " << _teamName
-			<< " -p " << _network->getPort()
-			<< " -h " << _network->getHostName()
-		;
-		system(cmd.str().c_str());
+		_network->close();
+		Client	c(_network->getPort(), _teamName, _network->getHostName());
+		c.loop();
+		// system(cmd.str().c_str());
 	}
 	else if (pid > 0)
 		return ;
@@ -138,9 +190,9 @@ void					Client::_updateInventory(void)
 {
 	std::string			data;
 
-	_ofs << "inventaire" << std::endl;
+	_ofs << getpid() << " " <<"inventaire" << std::endl;
 	data = _network->send("inventaire\n");
-	_ofs << data << std::endl;
+	_ofs << getpid() << " " << data << std::endl;
 }
 
 void					Client::_take(const std::string & obj)
@@ -149,9 +201,9 @@ void					Client::_take(const std::string & obj)
 	std::string			data;
 
 	message += obj + "\n";
-	_ofs << message << std::endl;
+	_ofs << getpid() << " " << message << std::endl;
 	data = _network->send(message);
-	_ofs << data << std::endl;
+	_ofs << getpid() << " " << data << std::endl;
 
 	if (data == "ok\n")
 		_updateInventory(obj, 1);
@@ -163,9 +215,9 @@ void					Client::_drop(const std::string & obj)
 	std::string			data;
 
 	message += obj + "\n";
-	_ofs << message << std::endl;
+	_ofs << getpid() << " " << message << std::endl;
 	data = _network->send(message);
-	_ofs << data << std::endl;
+	_ofs << getpid() << " " << data << std::endl;
 
 	if (data == "ok\n")
 		_updateInventory(obj, -1);
@@ -175,37 +227,37 @@ void					Client::_expulse(void)
 {
 	std::string			data;
 
-	_ofs << "expulse" << std::endl;
+	_ofs << getpid() << " " << "expulse" << std::endl;
 	data = _network->send("expulse\n");
-	_ofs << data << std::endl;
+	_ofs << getpid() << " " << data << std::endl;
 }
 
 void					Client::_broadcast(const std::string & msg)
 {
-	_ofs << msg << std::endl;
-	_ofs << _network->send(msg) << std::endl;
+	_ofs << getpid() << " " << msg << std::endl;
+	_ofs << getpid() << " " << _network->send(msg) << std::endl;
 }
 
 void					Client::_incantation(void)
 {
 	std::string			data;
 
-	_ofs << "incantation" << std::endl;
+	_ofs << getpid() << " " << "incantation" << std::endl;
 	data = _network->send("incantation\n");
-	_ofs << data << std::endl;
+	_ofs << getpid() << " " << data << std::endl;
 
 	if (data == "elevation en cours\n")
 	{
 		data = _network->recieve();
-		_ofs << data << std::endl;
+		_ofs << getpid() << " " << data << std::endl;
 		_level++;
 	}
 }
 
 void					Client::_egg(void)
 {
-	_ofs << "fork" << std::endl;
-	_ofs << _network->send("fork\n") << std::endl;	
+	_ofs << getpid() << " " << "fork" << std::endl;
+	_ofs << getpid() << " " << _network->send("fork\n") << std::endl;	
 }
 
 void			Client::_loadServerInfos(const std::string &infos)
@@ -213,11 +265,11 @@ void			Client::_loadServerInfos(const std::string &infos)
 	std::smatch	sm;
 	std::string	tmp;
 
-	_ofs << infos << std::endl;
+	_ofs << getpid() << " " << infos << std::endl;
 	std::regex_match(infos, sm, _serverInfosFormat);
 	if (sm.size() != 4)
 	{
-		_ofs << E_UNUSUAL_SERVER_BEHAVIOR << std::endl;
+		_ofs << getpid() << " " << E_UNUSUAL_SERVER_BEHAVIOR << std::endl;
 		exit(EXIT_FAILURE);
 	}
 	tmp = sm[1],  _availableConnections = strtol(tmp.c_str(), NULL, 10);
@@ -229,12 +281,12 @@ std::string    Client::_sendTeamInfo(void)
 {
 	std::string     msg(_network->recieve());
 
-	_ofs << msg << std::endl;
+	_ofs << getpid() << " " << msg << std::endl;
 	if (msg == "BIENVENUE\n")
 		return _network->send(_teamName + "\n");
 	else
 	{
-		_ofs << E_UNUSUAL_SERVER_BEHAVIOR << std::endl;
+		_ofs << getpid() << " " << E_UNUSUAL_SERVER_BEHAVIOR << std::endl;
 		exit(EXIT_FAILURE);
 	}
 }
