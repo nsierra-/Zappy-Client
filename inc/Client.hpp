@@ -57,6 +57,8 @@ class	Client
 	unsigned int					_mapY;
 	std::ofstream 					_ofs;
 	std::map<std::string, size_t>	_inventory;
+	std::map<std::string, int>		_movement; //a modfif vers pointer sur fonc
+	std::string						_fov; //champ de vision
 
 	std::string				_sendTeamInfo(void);
 	void					_loadServerInfos(const std::string &);
@@ -70,6 +72,7 @@ class	Client
 	void					_see(void);
 	void					_updateInventory(void);
 	void					_updateInventory(const std::string &, int);
+	int						_inInventory(const std::string &);
 	void					_take(const std::string &);
 	void					_drop(const std::string &);
 	void					_expulse(void);
@@ -77,8 +80,9 @@ class	Client
 	void					_incantation(void);
 	void					_egg(void);
 	int						_compos(int);
-	void					_composfind(int);
+	void					_composFind(int);
 	void					_search(void);
+	void					_playMove(void);
 };
 
 #endif /* CLIENT_HPP */

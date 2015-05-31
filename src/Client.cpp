@@ -145,8 +145,13 @@ void	Client::_ia(void)
 			_incantation();			
 		}
 		else
-			_composfind(_level);
-		// play_move()
+			_composFind(_level);
+		_playMove();
+}
+
+void			Client::_playMove(void)
+{
+
 }
 
 void			Client::_search(void)
@@ -162,7 +167,7 @@ void			Client::_search(void)
 	// }
 }
 
-void			Client::_composfind(int level)
+void			Client::_composFind(int level)
 {
 	(void)level;
 	//if nourriture take nourriture
@@ -172,22 +177,18 @@ void			Client::_composfind(int level)
 int				Client::_compos(int level)
 {
 	if (level == 1)
-		return 1;
-	// tab data;
-	// if (level == 1)
-	// {
-	// 	if (in inventory)
-	// 	{
-	// 		drop();
-	// 		return 1;
-	// 	}
-	// 	data = _see();
-	// 	if data[0][la compos]
-	// 		return 1;
-	// 	else
-	// 		return 0;
-
-	// }
+	{
+		if (_inInventory("linemate"))
+		{
+			_drop("linemate");
+			return 1;
+		}
+		_see();
+		if (_fov.find("linemate", 0))
+			return 1;
+		else
+			return 0;
+	}
 	//cmp compos needed vs inventory
 	return 0;
 }
@@ -219,15 +220,20 @@ void					Client::_move(enum eDirection dir)
 
 void					Client::_see(void)
 {
-	std::string			data;
-
 	printDebug("voir");
-	data = _network->send("voir\n");
+	_fov = _network->send("voir\n");
 }
 
 void					Client::_updateInventory(const std::string &obj, int qty)
 {
 	_inventory[obj] += qty;
+}
+
+int						Client::_inInventory(const std::string &name)
+{
+	if (_inventory[name] > 0)
+		return 1;
+	return 0;
 }
 
 void					Client::_updateInventory(void)
