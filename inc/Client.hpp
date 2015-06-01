@@ -2,7 +2,7 @@
 //             .'         `.
 //            :             :        File       : Client.hpp
 //           :               :       Creation   : 2015-05-21 00:43:58
-//           :      _/|      :       Last Edit  : 2015-06-02 00:52:34
+//           :      _/|      :       Last Edit  : 2015-06-02 01:22:04
 //            :   =/_/      :        Author     : nsierra-
 //             `._/ |     .'         Mail       : nsierra-@student.42.fr
 //          (   /  ,|...-'
@@ -33,6 +33,9 @@ class Network;
 class	Client
 {
 	public:
+
+		typedef void (Client::* ActionMan)(const std::smatch &, unsigned int);
+
 		Client(unsigned int,
 				std::string = "Default Team Name",
 				std::string = "localhost");
@@ -66,8 +69,8 @@ class	Client
 	unsigned int					_mapY;
 	std::ofstream 					_ofs;
 	std::map<std::string, size_t>	_inventory;
-	std::map<std::string, int>		_movement; //a modfif vers pointer sur fonc
-	std::string						_fov; //champ de vision
+	std::vector<ActionMan>			_actions;
+	std::map<std::string, size_t>	_fov; //champ de vision
 
 	std::string				_sendTeamInfo(void);
 	void					_loadServerInfos(const std::string &);
