@@ -176,6 +176,7 @@ void			Client::_composFind(int level)
 
 int				Client::_compos(int level)
 {
+	// map[level] = map[compos]->qte_need
 	if (level == 1)
 	{
 		if (_inInventory("linemate"))
