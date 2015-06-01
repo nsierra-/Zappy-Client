@@ -2,7 +2,7 @@
 //             .'         `.
 //            :             :        File       : Client.hpp
 //           :               :       Creation   : 2015-05-21 00:43:58
-//           :      _/|      :       Last Edit  : 2015-05-29 19:23:34
+//           :      _/|      :       Last Edit  : 2015-06-02 00:52:34
 //            :   =/_/      :        Author     : nsierra-
 //             `._/ |     .'         Mail       : nsierra-@student.42.fr
 //          (   /  ,|...-'
@@ -19,6 +19,14 @@
 # include <regex>
 # include <fstream>
 # include "Network.hpp"
+
+/*
+** TODO NOE
+** 
+** - constantes pour les noms de pierres, messages du serveur
+** - classe IA
+** - classe inventaire
+*/
 
 class Network;
 
@@ -48,6 +56,7 @@ class	Client
 
   	static const std::regex								_serverInfosFormat;
   	static std::map<enum eDirection, std::string>		_directionMap;
+  	static std::vector<std::map<std::string, size_t> >	_totems;
 
 	const std::string				_teamName;
 	Network							*_network;
@@ -72,7 +81,7 @@ class	Client
 	void					_see(void);
 	void					_updateInventory(void);
 	void					_updateInventory(const std::string &, int);
-	int						_inInventory(const std::string &);
+	int						_inInventory(const std::string &, size_t = 1);
 	void					_take(const std::string &);
 	void					_drop(const std::string &);
 	void					_expulse(void);
