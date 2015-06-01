@@ -2,7 +2,7 @@
 //             .'         `.
 //            :             :        File       : Client.cpp
 //           :               :       Creation   : 2015-05-21 00:44:59
-//           :      _/|      :       Last Edit  : 2015-06-02 00:56:45
+//           :      _/|      :       Last Edit  : 2015-06-02 01:07:22
 //            :   =/_/      :        Author     : nsierra-
 //             `._/ |     .'         Mail       : nsierra-@student.42.fr
 //          (   /  ,|...-'
@@ -119,7 +119,7 @@ bool	Client::loop(void)
 	{
 		if (strtol(_network->send("connect_nbr\n").c_str(), NULL, 10))
 		{
-			printDebug("FORKSTEN");
+			printDebug("FORKSTEM");
 			_forkstem();
 		}
 		else 
@@ -227,7 +227,9 @@ int				Client::_compos(int level)
 
 	for (auto &kv : compo)
 	{
-		if (!_inInventory(kv.first, kv.second))
+		if (_inInventory(kv.first, kv.second))
+			_drop(kv.first);
+		else
 		{
 			ok = false;
 			break ;
