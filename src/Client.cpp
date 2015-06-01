@@ -2,7 +2,7 @@
 //             .'         `.
 //            :             :        File       : Client.cpp
 //           :               :       Creation   : 2015-05-21 00:44:59
-//           :      _/|      :       Last Edit  : 2015-05-29 21:30:36
+//           :      _/|      :       Last Edit  : 2015-06-02 00:56:45
 //            :   =/_/      :        Author     : nsierra-
 //             `._/ |     .'         Mail       : nsierra-@student.42.fr
 //          (   /  ,|...-'
@@ -29,6 +29,51 @@ std::map<Client::eDirection, std::string>	Client::_directionMap =
 		{ UP, "avance\n" },
 		{ TURN_LEFT, "gauche\n" },
 		{ TURN_RIGHT, "droite\n" }
+	}
+;
+
+std::vector<std::map<std::string, size_t> >	Client::_totems =
+	{
+		{ },
+		{
+			{ "linemate", 1 }
+		},
+		{
+			{ "linemate", 1 },
+			{ "deraumere", 1 },
+			{ "sibur", 1 },
+		},
+		{
+			{ "linemate", 2 },
+			{ "sibur", 1 },
+			{ "phiras", 2 },
+		},
+		{
+			{ "linemate", 1 },
+			{ "deraumere", 1 },
+			{ "sibur", 2 },
+			{ "phiras", 1 },
+		},
+		{
+			{ "linemate", 1 },
+			{ "deraumere", 2 },
+			{ "sibur", 1 },
+			{ "mendiane", 3 },
+		},
+		{
+			{ "linemate", 1 },
+			{ "deraumere", 2 },
+			{ "sibur", 3 },
+			{ "phiras", 1 },
+		},
+		{
+			{ "linemate", 2 },
+			{ "deraumere", 2 },
+			{ "sibur", 2 },
+			{ "mendiane", 2 },
+			{ "phiras", 2 },
+			{ "thystame", 1 },
+		},
 	}
 ;
 
@@ -167,6 +212,7 @@ void			Client::_search(void)
 	// }
 }
 
+
 void			Client::_composFind(int level)
 {
 	(void)level;
@@ -176,22 +222,26 @@ void			Client::_composFind(int level)
 
 int				Client::_compos(int level)
 {
-	// map[level] = map[compos]->qte_need
-	if (level == 1)
+	std::map<std::string, size_t> &compo = _totems[level];
+	bool		ok = true;
+
+	for (auto &kv : compo)
 	{
-		if (_inInventory("linemate"))
+		if (!_inInventory(kv.first, kv.second))
 		{
-			_drop("linemate");
-			return 1;
+			ok = false;
+			break ;
 		}
+	}
+
+	if (!ok)
+	{
 		_see();
 		if (_fov.find("linemate", 0))
-			return 1;
-		else
-			return 0;
+			ok = true;
 	}
-	//cmp compos needed vs inventory
-	return 0;
+
+	return (ok == true);
 }
 
 void			Client::_forkstem(void)
@@ -230,11 +280,9 @@ void					Client::_updateInventory(const std::string &obj, int qty)
 	_inventory[obj] += qty;
 }
 
-int						Client::_inInventory(const std::string &name)
+int						Client::_inInventory(const std::string &name, size_t qty)
 {
-	if (_inventory[name] > 0)
-		return 1;
-	return 0;
+	return (_inventory[name] >= qty);
 }
 
 void					Client::_updateInventory(void)
