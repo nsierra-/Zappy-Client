@@ -2,7 +2,7 @@
 #             .'         `.
 #            :             :   File       : Makefile
 #           :               :  Creation   : 2015-05-17 02:38:33
-#           :      _/|      :  Last Edit  : 2015-06-02 04:05:37
+#           :      _/|      :  Last Edit  : 2015-06-02 19:12:09
 #            :   =/_/      :   Author     : nsierra-
 #             `._/ |     .'    Mail       : nsierra-@student.42.fr
 #          (   /  ,|...-'
@@ -28,6 +28,7 @@ CLASSES				=	Client \
 						ActionMove \
 						ActionSee \
 						ActionTake \
+						Inventory
 
 INTERF_SRC_SUFFIX	=	.cpp
 INTERF_INC_SUFFIX	=	.hpp

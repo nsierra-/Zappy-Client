@@ -1,14 +1,17 @@
 #ifndef ACTIONTAKE_HEADER
 #define ACTIONTAKE_HEADER
 
-#include <string>
-#include <iostream>
-#include "IAction.hpp"
+# include <string>
+# include <iostream>
+# include "IAction.hpp"
+# include "Inventory.hpp"
+
+class Inventory;
 
 class ActionTake : public IAction
 {
 public:
-	ActionTake(const std::string &, Client *);
+	ActionTake(const std::string &, Inventory &);
 	ActionTake(ActionTake const &);
 	virtual ~ActionTake();
 	std::string	toString() const;
@@ -19,7 +22,7 @@ public:
 
 private:
 	std::string		_obj;
-	Client *		_client;
+	Inventory &		_inventory;
 };
 
 std::ostream	&operator<<(std::ostream &o, ActionTake const &i);

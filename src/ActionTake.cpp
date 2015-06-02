@@ -1,13 +1,15 @@
 #include "ActionTake.hpp"
 
-ActionTake::ActionTake(const std::string &obj, Client *client) :
+ActionTake::ActionTake(const std::string &obj, Inventory & inventory) :
 	_obj(obj),
-	_client(client)
+	_inventory(inventory)
 {
 
 }
 
-ActionTake::ActionTake(ActionTake const &model)
+ActionTake::ActionTake(ActionTake const & model) :
+	_obj(model._obj),
+	_inventory(model._inventory)
 {
 	*this = model;
 }
@@ -22,17 +24,17 @@ std::string	ActionTake::toString() const
 	return "ActionTake";
 }
 
-ActionTake&	ActionTake::operator=(ActionTake const &copy)
+ActionTake&	ActionTake::operator=(ActionTake const & copy)
 {
 	if (this != &copy)
 	{
 		_obj = copy._obj;
-		_client = copy._client;
+		_inventory = copy._inventory;
 	}
 	return *this;
 }
 
-std::ostream	&operator<<(std::ostream &o, ActionTake const &i)
+std::ostream	&operator<<(std::ostream &o, ActionTake const & i)
 {
 	o << i.toString();
 	return o;
@@ -47,5 +49,5 @@ void	ActionTake::execute(Network &network)
 	data = network.send(message);
 
 	if (data == "ok\n")
-		_client->_updateInventory(_obj, 1);
+		_inventory.add(_obj, 1);
 }

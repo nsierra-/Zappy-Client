@@ -4,14 +4,14 @@
 #include <string>
 #include <iostream>
 #include "IAction.hpp"
-#include "Client.hpp"
+#include "Inventory.hpp"
 
-class Client;
+class Inventory;
 
 class ActionDrop : public IAction
 {
 	public:
-		ActionDrop(const std::string &obj, Client *client);
+		ActionDrop(const std::string &obj, Inventory & inventory);
 		ActionDrop(ActionDrop const &);
 		virtual ~ActionDrop();
 		std::string	toString() const;
@@ -22,7 +22,7 @@ class ActionDrop : public IAction
 
 	private:
 		const std::string	_object;
-		Client				*_client;
+		Inventory			&_inventory;
 };
 
 std::ostream	&operator<<(std::ostream &o, ActionDrop const &i);
