@@ -2,7 +2,7 @@
 //             .'         `.
 //            :             :        File       : Client.cpp
 //           :               :       Creation   : 2015-05-21 00:44:59
-//           :      _/|      :       Last Edit  : 2015-06-02 04:04:09
+//           :      _/|      :       Last Edit  : 2015-06-02 18:26:39
 //            :   =/_/      :        Author     : nsierra-
 //             `._/ |     .'         Mail       : nsierra-@student.42.fr
 //          (   /  ,|...-'
@@ -28,7 +28,9 @@ const std::regex	Client::_serverInfosFormat("(\\d+)\\n(\\d+) (\\d+)\\n");
 
 std::vector<std::map<std::string, size_t> >	Client::_totems =
 	{
-		{ },
+		{
+			{  }
+		},
 		{
 			{ "linemate", 1 }
 		},
