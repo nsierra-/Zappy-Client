@@ -40,7 +40,7 @@ void	ActionIncantation::execute(Network &network)
 
 	data = network.send(A_INCANTATION);
 
-	if (data == "elevation en cours\n")
+	if (data == Network::MSG_ELEVATION)
 	{
 		data = network.recieve();
 		_client->setLevel(_client->getLevel() + 1);

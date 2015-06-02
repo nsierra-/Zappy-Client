@@ -2,7 +2,7 @@
 //             .'         `.
 //            :             :        File       : Network.cpp
 //           :               :       Creation   : 2015-05-21 01:08:12
-//           :      _/|      :       Last Edit  : 2015-06-02 20:22:55
+//           :      _/|      :       Last Edit  : 2015-06-02 20:33:58
 //            :   =/_/      :        Author     : nsierra-
 //             `._/ |     .'         Mail       : nsierra-@student.42.fr
 //          (   /  ,|...-'
@@ -23,7 +23,13 @@
 #include <string.h>
 #include <sys/socket.h>
 
-const size_t	Network::BUFF_SIZE = 2048;
+const size_t		Network::BUFF_SIZE = 2048;
+const std::string	Network::MSG_SUCCESS = "ok\n";
+const std::string	Network::MSG_FAILURE = "ko\n";
+const std::string	Network::MSG_DEATH = "mort\n";
+const std::string	Network::MSG_BROADCAST = "message ";
+const std::string	Network::MSG_ELEVATION = "elevation en cours\n";
+const std::string	Network::MSG_WELCOME = "BIENVENUE\n";
 
 Network::Network(Client *client, unsigned int port, std::string hostName) :
 	_client(client),
@@ -94,7 +100,7 @@ void	Network::close(void)
 std::string		Network::recieve(void)
 {
 	ssize_t		ret;
-	char		buf[BUFF_SIZE] = { '.' };
+	char		buf[BUFF_SIZE] = { '\0' };
 
 	ret = recv(_socket_connect, buf, BUFF_SIZE - 1, 0);
 	switch (ret)
@@ -108,9 +114,9 @@ std::string		Network::recieve(void)
 		default:
 			_client->printDebug(buf);
 
-			if (!strncmp(buf, "mort\n", 5))
+			if (!strncmp(buf, MSG_DEATH.c_str(), 5))
 				_client->hasDied();
-			else if (!strncmp(buf, "message ", 7))
+			else if (!strncmp(buf, MSG_BROADCAST.c_str(), 7))
 			{
 				_client->recieveBroadcast(buf);
 				_client->printDebug("Broadcast recieved ! Recieving again...");
@@ -118,7 +124,7 @@ std::string		Network::recieve(void)
 			}
 			return buf;
 	}
-	return "ko";
+	return MSG_FAILURE;
 }
 
 std::string		Network::send(const std::string &message)
@@ -132,7 +138,7 @@ std::string		Network::send(const std::string &message)
 		if (::send(_socket_connect, toSend.c_str(), toSend.size(), 0) < 0)
 		{
 			std::cout << strerror(errno) << std::endl;
-			return "ko";
+			return MSG_FAILURE;
 		}
 		return recieve();
 	}
@@ -141,7 +147,7 @@ std::string		Network::send(const std::string &message)
 		<< "\" ! Not connected." << std::endl
 	;
 	exit(EXIT_FAILURE);
-	return "ko";
+	return MSG_FAILURE;
 }
 
 bool			Network::isConnected(void) { return _connected; }

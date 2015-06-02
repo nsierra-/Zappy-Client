@@ -2,7 +2,7 @@
 //             .'         `.
 //            :             :        File       : Network.hpp
 //           :               :       Creation   : 2015-05-21 01:03:30
-//           :      _/|      :       Last Edit  : 2015-06-02 03:57:17
+//           :      _/|      :       Last Edit  : 2015-06-02 20:33:45
 //            :   =/_/      :        Author     : nsierra-
 //             `._/ |     .'         Mail       : nsierra-@student.42.fr
 //          (   /  ,|...-'
@@ -28,6 +28,13 @@ class	Network
 		~Network(void);
 		Network(Network const & src);
 		Network &operator=(Network const & rhs);
+
+		static const std::string	MSG_SUCCESS;
+		static const std::string	MSG_FAILURE;
+		static const std::string	MSG_DEATH;
+		static const std::string	MSG_BROADCAST;
+		static const std::string	MSG_ELEVATION;
+		static const std::string	MSG_WELCOME;
 
 		bool				isConnected(void);
 		std::string			send(const std::string &);
