@@ -24,7 +24,7 @@ std::string	ActionDrop::toString() const
 	std::stringstream	ss;
 
 	ss
-		<< "ActioDrop : " << _object
+		<< "ActionDrop : " << _object
 	;
 	return ss.str();
 }
@@ -44,7 +44,7 @@ std::ostream	&operator<<(std::ostream &o, ActionDrop const &i)
 
 void	ActionDrop::execute(Network &network)
 {
-	std::string			message = "pose ";
+	std::string			message = A_DROP;
 	std::string			data;
 
 	message += _object + "\n";
