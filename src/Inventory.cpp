@@ -2,7 +2,7 @@
 //             .'         `.
 //            :             :        File       : Inventory.cpp
 //           :               :       Creation   : 2015-06-02 18:59:27
-//           :      _/|      :       Last Edit  : 2015-06-02 20:11:54
+//           :      _/|      :       Last Edit  : 2015-06-02 20:42:31
 //            :   =/_/      :        Author     : nsierra-
 //             `._/ |     .'         Mail       : nsierra-@student.42.fr
 //          (   /  ,|...-'
@@ -12,6 +12,14 @@
 //   /jgs     /-'`  `\   \  \-
 
 #include "Inventory.hpp"
+
+const std::string	Inventory::LINEMATE 	= "linemate";
+const std::string	Inventory::DERAUMERE 	= "deraumere";
+const std::string	Inventory::SIBUR 		= "sibur";
+const std::string	Inventory::MENDIANE 	= "mendiane";
+const std::string	Inventory::PHIRAS 		= "phiras";
+const std::string	Inventory::THYSTAME 	= "thystame";
+const std::string	Inventory::FOOD 		= "nourriture";
 
 Inventory::Inventory()
 {

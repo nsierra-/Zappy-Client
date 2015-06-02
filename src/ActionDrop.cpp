@@ -45,7 +45,7 @@ std::ostream	&operator<<(std::ostream & o, ActionDrop const &i)
 
 void	ActionDrop::execute(Network &network)
 {
-	std::string			message = A_DROP;
+	std::string			message = DROP;
 	std::string			data;
 
 	message += _object;

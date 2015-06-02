@@ -2,9 +2,9 @@
 
 std::map<enum eDirection, std::string>	ActionMove::_directionMap = 
 	{
-		{ UP,			A_MOVE_FORWARD },
-		{ TURN_LEFT,	A_MOVE_LEFT },
-		{ TURN_RIGHT,	A_MOVE_RIGHT }
+		{ UP,			MOVE_FORWARD },
+		{ TURN_LEFT,	MOVE_LEFT },
+		{ TURN_RIGHT,	MOVE_RIGHT }
 	}
 ;
 

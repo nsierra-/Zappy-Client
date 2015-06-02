@@ -35,5 +35,5 @@ std::ostream	&operator<<(std::ostream &o, ActionExpulse const &i)
 
 void	ActionExpulse::execute(Network &network)
 {
-	network.send(A_EXPULSE);
+	network.send(EXPULSE);
 }

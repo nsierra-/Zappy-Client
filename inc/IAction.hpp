@@ -2,7 +2,7 @@
 //             .'         `.
 //            :             :        File       : IAction.hpp
 //           :               :       Creation   : 2015-06-02 01:22:19
-//           :      _/|      :       Last Edit  : 2015-06-02 18:38:11
+//           :      _/|      :       Last Edit  : 2015-06-02 20:49:43
 //            :   =/_/      :        Author     : nsierra-
 //             `._/ |     .'         Mail       : nsierra-@student.42.fr
 //          (   /  ,|...-'
@@ -26,16 +26,16 @@ class	IAction
 
 		virtual 		~IAction(void) {};
 
-		static const std::string	A_BROADCAST;
-		static const std::string	A_DROP;
-		static const std::string	A_EGG;
-		static const std::string	A_EXPULSE;
-		static const std::string	A_INCANTATION;
-		static const std::string	A_MOVE_FORWARD;
-		static const std::string	A_MOVE_LEFT;
-		static const std::string	A_MOVE_RIGHT;
-		static const std::string	A_SEE;
-		static const std::string	A_TAKE;
+		static const std::string	BROADCAST;
+		static const std::string	DROP;
+		static const std::string	EGG;
+		static const std::string	EXPULSE;
+		static const std::string	INCANTATION;
+		static const std::string	MOVE_FORWARD;
+		static const std::string	MOVE_LEFT;
+		static const std::string	MOVE_RIGHT;
+		static const std::string	SEE;
+		static const std::string	TAKE;
 };
 
 #endif /* IACTION_HPP */
