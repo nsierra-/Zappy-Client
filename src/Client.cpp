@@ -239,8 +239,8 @@ int				Client::_compos(int level)
 	if (!ok)
 	{
 		_see();
-		if (_fov.find("linemate", 0))
-			ok = true;
+		//if (_fov.find("linemate", 0))
+		//	ok = true;
 	}
 
 	return (ok == true);
@@ -274,7 +274,7 @@ void					Client::_move(enum eDirection dir)
 void					Client::_see(void)
 {
 	printDebug("voir");
-	_fov = _network->send("voir\n");
+	/*_fov = */_network->send("voir\n");
 }
 
 void					Client::_updateInventory(const std::string &obj, int qty)
