@@ -2,7 +2,7 @@
 //             .'         `.
 //            :             :        File       : Inventory.hpp
 //           :               :       Creation   : 2015-06-02 18:57:56
-//           :      _/|      :       Last Edit  : 2015-06-02 20:02:04
+//           :      _/|      :       Last Edit  : 2015-06-02 20:36:04
 //            :   =/_/      :        Author     : nsierra-
 //             `._/ |     .'         Mail       : nsierra-@student.42.fr
 //          (   /  ,|...-'
@@ -28,6 +28,14 @@ public:
 	std::string	toString() const;
 	Inventory&	operator=(Inventory const &);
 	size_t 		operator[](const std::string &);
+
+	static const std::string	LINEMATE;
+	static const std::string	DERAUMERE;
+	static const std::string	SIBUR;
+	static const std::string	MENDIANE;
+	static const std::string	PHIRAS;
+	static const std::string	THYSTAME;
+	static const std::string	FOOD;
 
 	bool	has(const std::string &, size_t = 1);
 	void	add(const std::string &, int = 1);

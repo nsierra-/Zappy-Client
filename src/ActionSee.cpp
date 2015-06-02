@@ -35,5 +35,5 @@ std::ostream	&operator<<(std::ostream &o, ActionSee const &i)
 
 void	ActionSee::execute(Network &network)
 {
-	network.send(A_SEE);
+	network.send(SEE);
 }

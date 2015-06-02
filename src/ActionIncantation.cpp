@@ -38,7 +38,7 @@ void	ActionIncantation::execute(Network &network)
 {
 	std::string			data;
 
-	data = network.send(A_INCANTATION);
+	data = network.send(INCANTATION);
 
 	if (data == Network::MSG_ELEVATION)
 	{

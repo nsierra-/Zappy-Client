@@ -2,7 +2,7 @@
 //             .'         `.
 //            :             :        File       : Client.cpp
 //           :               :       Creation   : 2015-05-21 00:44:59
-//           :      _/|      :       Last Edit  : 2015-06-02 20:34:11
+//           :      _/|      :       Last Edit  : 2015-06-02 20:50:16
 //            :   =/_/      :        Author     : nsierra-
 //             `._/ |     .'         Mail       : nsierra-@student.42.fr
 //          (   /  ,|...-'
@@ -32,43 +32,43 @@ std::vector<std::map<std::string, size_t> >	Client::_totems =
 			{  }
 		},
 		{
-			{ "linemate", 1 }
+			{ Inventory::LINEMATE, 1 }
 		},
 		{
-			{ "linemate", 1 },
-			{ "deraumere", 1 },\
-			{ "sibur", 1 },
+			{ Inventory::LINEMATE, 1 },
+			{ Inventory::DERAUMERE, 1 },\
+			{ Inventory::SIBUR, 1 },
 		},
 		{
-			{ "linemate", 2 },
-			{ "sibur", 1 },
-			{ "phiras", 2 },
+			{ Inventory::LINEMATE, 2 },
+			{ Inventory::SIBUR, 1 },
+			{ Inventory::PHIRAS, 2 },
 		},
 		{
-			{ "linemate", 1 },
-			{ "deraumere", 1 },
-			{ "sibur", 2 },
-			{ "phiras", 1 },
+			{ Inventory::LINEMATE, 1 },
+			{ Inventory::DERAUMERE, 1 },
+			{ Inventory::SIBUR, 2 },
+			{ Inventory::PHIRAS, 1 },
 		},
 		{
-			{ "linemate", 1 },
-			{ "deraumere", 2 },
-			{ "sibur", 1 },
-			{ "mendiane", 3 },
+			{ Inventory::LINEMATE, 1 },
+			{ Inventory::DERAUMERE, 2 },
+			{ Inventory::SIBUR, 1 },
+			{ Inventory::MENDIANE, 3 },
 		},
 		{
-			{ "linemate", 1 },
-			{ "deraumere", 2 },
-			{ "sibur", 3 },
-			{ "phiras", 1 },
+			{ Inventory::LINEMATE, 1 },
+			{ Inventory::DERAUMERE, 2 },
+			{ Inventory::SIBUR, 3 },
+			{ Inventory::PHIRAS, 1 },
 		},
 		{
-			{ "linemate", 2 },
-			{ "deraumere", 2 },
-			{ "sibur", 2 },
-			{ "mendiane", 2 },
-			{ "phiras", 2 },
-			{ "thystame", 1 },
+			{ Inventory::LINEMATE, 2 },
+			{ Inventory::DERAUMERE, 2 },
+			{ Inventory::SIBUR, 2 },
+			{ Inventory::MENDIANE, 2 },
+			{ Inventory::PHIRAS, 2 },
+			{ Inventory::THYSTAME, 1 },
 		},
 	}
 ;
@@ -84,7 +84,7 @@ Client::Client(unsigned int port, std::string teamName, std::string hostName) :
 	name << "debug/" << getpid();
 	_ofs.open(name.str().c_str());
 
-	_inventory.add("nourriture", 10);
+	_inventory.add(Inventory::FOOD, 10);
 }
 
 Client::Client(Client const & src) :
@@ -108,13 +108,13 @@ Client	&Client::operator=(Client const & rhs)
 
 IAction					*Client::_createAction(const std::string & action)
 {
-	if (action == "see")
+	if (action == IAction::SEE)
 		return new ActionSee();
-	if (action == "expulse")
+	if (action == IAction::EXPULSE)
 		return new ActionExpulse();
-	if (action == "incantation")
+	if (action == IAction::INCANTATION)
 		return new ActionIncantation(this);
-	if (action == "egg")
+	if (action == IAction::EGG)
 		return new ActionEgg();
 	return nullptr;
 }
@@ -126,11 +126,11 @@ IAction					*Client::_createAction(enum eDirection dir)
 
 IAction					*Client::_createAction(const std::string & action, const std::string &str)
 {
-	if (action == "take")
+	if (action == IAction::TAKE)
 		return new ActionTake(str, _inventory);
-	if (action == "drop")
+	if (action == IAction::DROP)
 		return new ActionDrop(str, _inventory);
-	if (action == "broadcast")
+	if (action == IAction::BROADCAST)
 		return new ActionBroadcast(str);
 	return nullptr;
 }
@@ -258,7 +258,7 @@ int				Client::_compos(int level)
 	for (auto &kv : compo)
 	{
 		if (_inventory.has(kv.first, kv.second))
-			_actions.push_back(_createAction("drop", kv.first));
+			_actions.push_back(_createAction(IAction::DROP, kv.first));
 		else
 		{
 			ok = false;
@@ -268,8 +268,8 @@ int				Client::_compos(int level)
 
 	if (!ok)
 	{
-		_actions.push_back(_createAction("see"));
-		//if (_fov.find("linemate", 0))
+		_actions.push_back(_createAction(IAction::SEE));
+		//if (_fov.find(Inventory::LINEMATE, 0))
 		//	ok = true;
 	}
 
