@@ -43,5 +43,5 @@ std::ostream	&operator<<(std::ostream &o, ActionBroadcast const &i)
 
 void	ActionBroadcast::execute(Network &network)
 {
-	network.send(_msg);
+	network.send(A_BROADCAST + _msg);
 }

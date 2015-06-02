@@ -35,5 +35,5 @@ std::ostream	&operator<<(std::ostream &o, ActionEgg const &i)
 
 void	ActionEgg::execute(Network &network)
 {
-	network.send("fork\n");
+	network.send(A_EGG);
 }

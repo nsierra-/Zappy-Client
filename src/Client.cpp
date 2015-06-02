@@ -2,7 +2,7 @@
 //             .'         `.
 //            :             :        File       : Client.cpp
 //           :               :       Creation   : 2015-05-21 00:44:59
-//           :      _/|      :       Last Edit  : 2015-06-02 18:26:39
+//           :      _/|      :       Last Edit  : 2015-06-02 18:28:34
 //            :   =/_/      :        Author     : nsierra-
 //             `._/ |     .'         Mail       : nsierra-@student.42.fr
 //          (   /  ,|...-'
@@ -36,7 +36,7 @@ std::vector<std::map<std::string, size_t> >	Client::_totems =
 		},
 		{
 			{ "linemate", 1 },
-			{ "deraumere", 1 },
+			{ "deraumere", 1 },\
 			{ "sibur", 1 },
 		},
 		{
