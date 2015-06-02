@@ -53,6 +53,17 @@ class	Client
 
 	unsigned int			getLevel() const;
 	void					setLevel(unsigned int val);
+	// Gestion de la map perso beta
+
+	size_t	_playerX;
+	size_t	getplayerX() const;
+	void	setplayerX(size_t &val);
+	size_t	_playerY;
+	size_t	getplayerY() const;
+	void	setplayerY(size_t &val);
+	//vector ??
+	std::map<size_t, std::map<size_t, std::string> > _map; //inventaire ??
+
 
 	void					printDebug(const std::string &);
 
@@ -70,7 +81,6 @@ class	Client
 	std::ofstream 					_ofs;
 	Inventory						_inventory;
 	std::vector<IAction *>			_actions;
-	std::map<std::string, size_t>	_fov; //champ de vision
 
 	std::string				_sendTeamInfo(void);
 	void					_loadServerInfos(const std::string &);
