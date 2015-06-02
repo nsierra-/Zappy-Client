@@ -1,6 +1,15 @@
 #include "ActionMove.hpp"
 
-ActionMove::ActionMove()
+std::map<enum eDirection, std::string>	ActionMove::_directionMap = 
+	{
+		{ UP, "avance\n" },
+		{ TURN_LEFT, "gauche\n" },
+		{ TURN_RIGHT, "droite\n" }
+	}
+;
+
+ActionMove::ActionMove(enum eDirection dir) :
+	_dir(dir)
 {
 
 }
@@ -31,4 +40,9 @@ std::ostream	&operator<<(std::ostream &o, ActionMove const &i)
 {
 	o << i.toString();
 	return o;
+}
+
+void	ActionMove::execute(Network &network)
+{
+	network.send(_directionMap[_dir]);
 }

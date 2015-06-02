@@ -2,7 +2,7 @@
 //             .'         `.
 //            :             :        File       : Client.cpp
 //           :               :       Creation   : 2015-05-21 00:44:59
-//           :      _/|      :       Last Edit  : 2015-06-02 01:07:22
+//           :      _/|      :       Last Edit  : 2015-06-02 04:04:09
 //            :   =/_/      :        Author     : nsierra-
 //             `._/ |     .'         Mail       : nsierra-@student.42.fr
 //          (   /  ,|...-'
@@ -13,6 +13,8 @@
 
 #include "Client.hpp"
 #include "ErrorMsg.hpp"
+#include "eDirection.hpp"
+#include "Actions.hpp"
 #include <stdlib.h>
 #include <unistd.h>
 #include <sstream>
@@ -23,14 +25,6 @@
 #include <locale>
 
 const std::regex	Client::_serverInfosFormat("(\\d+)\\n(\\d+) (\\d+)\\n");
-
-std::map<Client::eDirection, std::string>	Client::_directionMap = 
-	{
-		{ UP, "avance\n" },
-		{ TURN_LEFT, "gauche\n" },
-		{ TURN_RIGHT, "droite\n" }
-	}
-;
 
 std::vector<std::map<std::string, size_t> >	Client::_totems =
 	{
@@ -110,6 +104,35 @@ Client	&Client::operator=(Client const & rhs)
 	return *this;
 }
 
+IAction					*Client::_createAction(const std::string & action)
+{
+	if (action == "see")
+		return new ActionSee();
+	if (action == "expulse")
+		return new ActionExpulse();
+	if (action == "incantation")
+		return new ActionIncantation(this);
+	if (action == "egg")
+		return new ActionEgg();
+	return nullptr;
+}
+
+IAction					*Client::_createAction(enum eDirection dir)
+{
+	return new ActionMove(dir);
+}
+
+IAction					*Client::_createAction(const std::string & action, const std::string &str)
+{
+	if (action == "take")
+		return new ActionTake(str, this);
+	if (action == "drop")
+		return new ActionDrop(str, this);
+	if (action == "broadcast")
+		return new ActionBroadcast(str);
+	return nullptr;
+}
+
 bool	Client::loop(void)
 {
 	std::string msg;
@@ -187,7 +210,7 @@ void	Client::_ia(void)
 		{
 			if (_level > 1)
 				_search();
-			_incantation();			
+			_actions.push_back(_createAction("incantation"));
 		}
 		else
 			_composFind(_level);
@@ -196,7 +219,12 @@ void	Client::_ia(void)
 
 void			Client::_playMove(void)
 {
-
+	for (auto &action : _actions)
+	{
+		action->execute(*_network);
+		delete action;
+	}
+	_actions.clear();
 }
 
 void			Client::_search(void)
@@ -228,7 +256,7 @@ int				Client::_compos(int level)
 	for (auto &kv : compo)
 	{
 		if (_inInventory(kv.first, kv.second))
-			_drop(kv.first);
+			_actions.push_back(_createAction("drop", kv.first));
 		else
 		{
 			ok = false;
@@ -238,7 +266,7 @@ int				Client::_compos(int level)
 
 	if (!ok)
 	{
-		_see();
+		_actions.push_back(_createAction("see"));
 		//if (_fov.find("linemate", 0))
 		//	ok = true;
 	}
@@ -265,17 +293,6 @@ void			Client::_forkstem(void)
 	}
 }
 
-void					Client::_move(enum eDirection dir)
-{
-	_ofs << _directionMap[dir] << std::endl;
-	_ofs << _network->send(_directionMap[dir]) << std::endl;
-}
-
-void					Client::_see(void)
-{
-	printDebug("voir");
-	/*_fov = */_network->send("voir\n");
-}
 
 void					Client::_updateInventory(const std::string &obj, int qty)
 {
@@ -291,68 +308,7 @@ void					Client::_updateInventory(void)
 {
 	std::string			data;
 
-	printDebug("inventaire");
 	data = _network->send("inventaire\n");
-}
-
-void					Client::_take(const std::string & obj)
-{
-	std::string			message = "prendre ";
-	std::string			data;
-
-	message += obj + "\n";
-	printDebug(message);
-	data = _network->send(message);
-
-	if (data == "ok\n")
-		_updateInventory(obj, 1);
-}
-
-void					Client::_drop(const std::string & obj)
-{
-	std::string			message = "prendre ";
-	std::string			data;
-
-	message += obj + "\n";
-	printDebug(message);
-	data = _network->send(message);
-
-	if (data == "ok\n")
-		_updateInventory(obj, -1);
-}
-
-void					Client::_expulse(void)
-{
-	std::string			data;
-
-	printDebug("expulse");
-	data = _network->send("expulse\n");
-}
-
-void					Client::_broadcast(const std::string & msg)
-{
-	printDebug(msg);
-	printDebug(_network->send(msg));
-}
-
-void					Client::_incantation(void)
-{
-	std::string			data;
-
-	printDebug("incantation");
-	data = _network->send("incantation\n");
-
-	if (data == "elevation en cours\n")
-	{
-		data = _network->recieve();
-		_level++;
-	}
-}
-
-void					Client::_egg(void)
-{
-	printDebug("fork");
-	printDebug(_network->send("fork\n"));
 }
 
 void			Client::_loadServerInfos(const std::string &infos)
@@ -382,4 +338,14 @@ std::string    Client::_sendTeamInfo(void)
 		printDebug(E_UNUSUAL_SERVER_BEHAVIOR);
 		exit(EXIT_FAILURE);
 	}
+}
+
+unsigned int	Client::getLevel() const
+{
+	return _level;
+}
+
+void	Client::setLevel(unsigned int val)
+{
+	_level = val;
 }

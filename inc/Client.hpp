@@ -2,7 +2,7 @@
 //             .'         `.
 //            :             :        File       : Client.hpp
 //           :               :       Creation   : 2015-05-21 00:43:58
-//           :      _/|      :       Last Edit  : 2015-06-02 01:22:04
+//           :      _/|      :       Last Edit  : 2015-06-02 04:04:30
 //            :   =/_/      :        Author     : nsierra-
 //             `._/ |     .'         Mail       : nsierra-@student.42.fr
 //          (   /  ,|...-'
@@ -19,6 +19,8 @@
 # include <regex>
 # include <fstream>
 # include "Network.hpp"
+# include "IAction.hpp"
+# include "eDirection.hpp"
 
 /*
 ** TODO NOE
@@ -29,12 +31,11 @@
 */
 
 class Network;
+class IAction;
 
 class	Client
 {
 	public:
-
-		typedef void (Client::* ActionMan)(const std::smatch &, unsigned int);
 
 		Client(unsigned int,
 				std::string = "Default Team Name",
@@ -46,19 +47,17 @@ class	Client
 	bool					loop(void);
 	void					hasDied(void);
 	void					recieveBroadcast(const std::string &);
+	void					_updateInventory(void);
+	void					_updateInventory(const std::string &, int);
+
+	unsigned int			getLevel() const;
+	void					setLevel(unsigned int val);
 
 	void					printDebug(const std::string &);
 
   private:
 
-  	enum eDirection : int {
-  		UP,
-  		TURN_LEFT,
-  		TURN_RIGHT
-  	};
-
   	static const std::regex								_serverInfosFormat;
-  	static std::map<enum eDirection, std::string>		_directionMap;
   	static std::vector<std::map<std::string, size_t> >	_totems;
 
 	const std::string				_teamName;
@@ -69,32 +68,22 @@ class	Client
 	unsigned int					_mapY;
 	std::ofstream 					_ofs;
 	std::map<std::string, size_t>	_inventory;
-	std::vector<ActionMan>			_actions;
+	std::vector<IAction *>			_actions;
 	std::map<std::string, size_t>	_fov; //champ de vision
 
 	std::string				_sendTeamInfo(void);
 	void					_loadServerInfos(const std::string &);
 	void					_forkstem(void);
 	void					_ia(void);
-
-	/*
-	** Actions
-	*/
-	void					_move(enum eDirection);
-	void					_see(void);
-	void					_updateInventory(void);
-	void					_updateInventory(const std::string &, int);
 	int						_inInventory(const std::string &, size_t = 1);
-	void					_take(const std::string &);
-	void					_drop(const std::string &);
-	void					_expulse(void);
-	void					_broadcast(const std::string &);
-	void					_incantation(void);
-	void					_egg(void);
 	int						_compos(int);
 	void					_composFind(int);
 	void					_search(void);
 	void					_playMove(void);
+
+	IAction					*_createAction(const std::string &);
+	IAction					*_createAction(enum eDirection);
+	IAction					*_createAction(const std::string &, const std::string &);
 };
 
 #endif /* CLIENT_HPP */

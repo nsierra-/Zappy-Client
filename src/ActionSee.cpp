@@ -32,3 +32,8 @@ std::ostream	&operator<<(std::ostream &o, ActionSee const &i)
 	o << i.toString();
 	return o;
 }
+
+void	ActionSee::execute(Network &network)
+{
+	network.send("voir\n");
+}

@@ -3,18 +3,25 @@
 
 #include <string>
 #include <iostream>
+#include "IAction.hpp"
+#include "Client.hpp"
 
-class ActionIncantation
+class Client;
+
+class ActionIncantation : public IAction
 {
 public:
-	ActionIncantation();
+	ActionIncantation(Client *client);
 	ActionIncantation(ActionIncantation const &);
 	virtual ~ActionIncantation();
 	std::string	toString() const;
 
 	ActionIncantation&	operator=(ActionIncantation const &);
 
-	
+	virtual void	execute(Network &network);
+
+private:
+	Client			*_client;
 };
 
 std::ostream	&operator<<(std::ostream &o, ActionIncantation const &i);

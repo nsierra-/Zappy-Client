@@ -3,8 +3,9 @@
 
 #include <string>
 #include <iostream>
+#include "IAction.hpp"
 
-class ActionEgg
+class ActionEgg : public IAction
 {
 public:
 	ActionEgg();
@@ -14,7 +15,7 @@ public:
 
 	ActionEgg&	operator=(ActionEgg const &);
 
-	
+	virtual void	execute(Network &network);
 };
 
 std::ostream	&operator<<(std::ostream &o, ActionEgg const &i);

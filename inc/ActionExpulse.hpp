@@ -3,8 +3,9 @@
 
 #include <string>
 #include <iostream>
+#include "IAction.hpp"
 
-class ActionExpulse
+class ActionExpulse : public IAction
 {
 public:
 	ActionExpulse();
@@ -14,7 +15,7 @@ public:
 
 	ActionExpulse&	operator=(ActionExpulse const &);
 
-	
+	virtual void	execute(Network &network);
 };
 
 std::ostream	&operator<<(std::ostream &o, ActionExpulse const &i);
