@@ -2,7 +2,7 @@
 //             .'         `.
 //            :             :        File       : Client.cpp
 //           :               :       Creation   : 2015-05-21 00:44:59
-//           :      _/|      :       Last Edit  : 2015-06-02 20:10:51
+//           :      _/|      :       Last Edit  : 2015-06-02 20:34:11
 //            :   =/_/      :        Author     : nsierra-
 //             `._/ |     .'         Mail       : nsierra-@student.42.fr
 //          (   /  ,|...-'
@@ -332,7 +332,7 @@ std::string    Client::_sendTeamInfo(void)
 {
 	std::string     msg(_network->recieve());
 
-	if (msg == "BIENVENUE\n")
+	if (msg == Network::MSG_WELCOME)
 		return _network->send(_teamName);
 	else
 	{

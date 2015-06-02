@@ -51,6 +51,6 @@ void	ActionDrop::execute(Network &network)
 	message += _object;
 	data = network.send(message);
 
-	if (data == "ok\n")
+	if (data == Network::MSG_SUCCESS)
 		_inventory.add(_object, -1);
 }

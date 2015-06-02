@@ -42,12 +42,12 @@ std::ostream	&operator<<(std::ostream &o, ActionTake const & i)
 
 void	ActionTake::execute(Network &network)
 {
-	std::string			message = "prendre ";
+	std::string			message = IAction::A_TAKE;
 	std::string			data;
 
-	message += _obj + "\n";
+	message += _obj;
 	data = network.send(message);
 
-	if (data == "ok\n")
+	if (data == Network::MSG_SUCCESS)
 		_inventory.add(_obj, 1);
 }
