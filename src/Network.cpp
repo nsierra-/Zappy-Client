@@ -2,7 +2,7 @@
 //             .'         `.
 //            :             :        File       : Network.cpp
 //           :               :       Creation   : 2015-05-21 01:08:12
-//           :      _/|      :       Last Edit  : 2015-06-02 02:48:52
+//           :      _/|      :       Last Edit  : 2015-06-02 20:22:55
 //            :   =/_/      :        Author     : nsierra-
 //             `._/ |     .'         Mail       : nsierra-@student.42.fr
 //          (   /  ,|...-'
@@ -125,8 +125,11 @@ std::string		Network::send(const std::string &message)
 {
 	if (_connected)
 	{
+		std::string		toSend = message;
+
+		toSend += "\n";
 		_client->printDebug(message);
-		if (::send(_socket_connect, message.c_str(), message.size(), 0) < 0)
+		if (::send(_socket_connect, toSend.c_str(), toSend.size(), 0) < 0)
 		{
 			std::cout << strerror(errno) << std::endl;
 			return "ko";

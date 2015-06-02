@@ -2,7 +2,7 @@
 //             .'         `.
 //            :             :        File       : Client.hpp
 //           :               :       Creation   : 2015-05-21 00:43:58
-//           :      _/|      :       Last Edit  : 2015-06-02 04:04:30
+//           :      _/|      :       Last Edit  : 2015-06-02 19:48:52
 //            :   =/_/      :        Author     : nsierra-
 //             `._/ |     .'         Mail       : nsierra-@student.42.fr
 //          (   /  ,|...-'
@@ -19,6 +19,7 @@
 # include <regex>
 # include <fstream>
 # include "Network.hpp"
+# include "Inventory.hpp"
 # include "IAction.hpp"
 # include "eDirection.hpp"
 
@@ -47,8 +48,8 @@ class	Client
 	bool					loop(void);
 	void					hasDied(void);
 	void					recieveBroadcast(const std::string &);
-	void					_updateInventory(void);
-	void					_updateInventory(const std::string &, int);
+	// void					_updateInventory(void);
+	// void					_updateInventory(const std::string &, int);
 
 	unsigned int			getLevel() const;
 	void					setLevel(unsigned int val);
@@ -67,7 +68,7 @@ class	Client
 	unsigned int					_mapX;
 	unsigned int					_mapY;
 	std::ofstream 					_ofs;
-	std::map<std::string, size_t>	_inventory;
+	Inventory						_inventory;
 	std::vector<IAction *>			_actions;
 	std::map<std::string, size_t>	_fov; //champ de vision
 
@@ -75,7 +76,7 @@ class	Client
 	void					_loadServerInfos(const std::string &);
 	void					_forkstem(void);
 	void					_ia(void);
-	int						_inInventory(const std::string &, size_t = 1);
+	// int						_inInventory(const std::string &, size_t = 1);
 	int						_compos(int);
 	void					_composFind(int);
 	void					_search(void);

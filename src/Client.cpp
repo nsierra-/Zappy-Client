@@ -2,7 +2,7 @@
 //             .'         `.
 //            :             :        File       : Client.cpp
 //           :               :       Creation   : 2015-05-21 00:44:59
-//           :      _/|      :       Last Edit  : 2015-06-02 18:28:34
+//           :      _/|      :       Last Edit  : 2015-06-02 20:10:51
 //            :   =/_/      :        Author     : nsierra-
 //             `._/ |     .'         Mail       : nsierra-@student.42.fr
 //          (   /  ,|...-'
@@ -84,7 +84,7 @@ Client::Client(unsigned int port, std::string teamName, std::string hostName) :
 	name << "debug/" << getpid();
 	_ofs.open(name.str().c_str());
 
-	_inventory["nourriture"] = 10;
+	_inventory.add("nourriture", 10);
 }
 
 Client::Client(Client const & src) :
@@ -127,9 +127,9 @@ IAction					*Client::_createAction(enum eDirection dir)
 IAction					*Client::_createAction(const std::string & action, const std::string &str)
 {
 	if (action == "take")
-		return new ActionTake(str, this);
+		return new ActionTake(str, _inventory);
 	if (action == "drop")
-		return new ActionDrop(str, this);
+		return new ActionDrop(str, _inventory);
 	if (action == "broadcast")
 		return new ActionBroadcast(str);
 	return nullptr;
@@ -142,7 +142,7 @@ bool	Client::loop(void)
 	_loadServerInfos(_sendTeamInfo());
 	while (42)
 	{
-		if (strtol(_network->send("connect_nbr\n").c_str(), NULL, 10))
+		if (strtol(_network->send("connect_nbr").c_str(), NULL, 10))
 		{
 			printDebug("FORKSTEM");
 			_forkstem();
@@ -257,7 +257,7 @@ int				Client::_compos(int level)
 
 	for (auto &kv : compo)
 	{
-		if (_inInventory(kv.first, kv.second))
+		if (_inventory.has(kv.first, kv.second))
 			_actions.push_back(_createAction("drop", kv.first));
 		else
 		{
@@ -295,23 +295,22 @@ void			Client::_forkstem(void)
 	}
 }
 
+// void					Client::_updateInventory(const std::string &obj, int qty)
+// {
+// 	_inventory[obj] += qty;
+// }
 
-void					Client::_updateInventory(const std::string &obj, int qty)
-{
-	_inventory[obj] += qty;
-}
+// int						Client::_inInventory(const std::string &name, size_t qty)
+// {
+// 	return (_inventory[name] >= qty);
+// }
 
-int						Client::_inInventory(const std::string &name, size_t qty)
-{
-	return (_inventory[name] >= qty);
-}
+// void					Client::_updateInventory(void)
+// {
+// 	std::string			data;
 
-void					Client::_updateInventory(void)
-{
-	std::string			data;
-
-	data = _network->send("inventaire\n");
-}
+// 	data = _network->send("inventaire");
+// }
 
 void			Client::_loadServerInfos(const std::string &infos)
 {
@@ -334,7 +333,7 @@ std::string    Client::_sendTeamInfo(void)
 	std::string     msg(_network->recieve());
 
 	if (msg == "BIENVENUE\n")
-		return _network->send(_teamName + "\n");
+		return _network->send(_teamName);
 	else
 	{
 		printDebug(E_UNUSUAL_SERVER_BEHAVIOR);

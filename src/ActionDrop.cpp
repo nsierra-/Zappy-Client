@@ -1,15 +1,16 @@
 #include "ActionDrop.hpp"
 #include <sstream>
 
-ActionDrop::ActionDrop(const std::string &obj, Client *client) :
+ActionDrop::ActionDrop(const std::string &obj, Inventory & inventory) :
 	_object(obj),
-	_client(client)
+	_inventory(inventory)
 {
 
 }
 
-ActionDrop::ActionDrop(ActionDrop const &model) :
-	_object(model._object)
+ActionDrop::ActionDrop(ActionDrop const & model) :
+	_object(model._object),
+	_inventory(model._inventory)
 {
 	*this = model;
 }
@@ -29,14 +30,14 @@ std::string	ActionDrop::toString() const
 	return ss.str();
 }
 
-ActionDrop&	ActionDrop::operator=(ActionDrop const &copy)
+ActionDrop&	ActionDrop::operator=(ActionDrop const & copy)
 {
 	if (this != &copy)
 		(void)copy;
 	return *this;
 }
 
-std::ostream	&operator<<(std::ostream &o, ActionDrop const &i)
+std::ostream	&operator<<(std::ostream & o, ActionDrop const &i)
 {
 	o << i.toString();
 	return o;
@@ -47,9 +48,9 @@ void	ActionDrop::execute(Network &network)
 	std::string			message = A_DROP;
 	std::string			data;
 
-	message += _object + "\n";
+	message += _object;
 	data = network.send(message);
 
 	if (data == "ok\n")
-		_client->_updateInventory(_object, -1);
+		_inventory.add(_object, -1);
 }
