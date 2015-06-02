@@ -19,7 +19,15 @@ INC_DIR				=	inc/
 CLASS_SRC_SUFFIX	=	.cpp
 CLASS_INC_SUFFIX	=	.hpp
 CLASSES				=	Client \
-						Network
+						Network \
+						ActionBroadcast \
+						ActionDrop \
+						ActionEgg \
+						ActionExpulse \
+						ActionIncantation \
+						ActionMove \
+						ActionSee \
+						ActionTake \
 
 INTERF_SRC_SUFFIX	=	.cpp
 INTERF_INC_SUFFIX	=	.hpp
@@ -37,7 +45,8 @@ INC_FILES			=	$(addsuffix $(CLASS_INC_SUFFIX), $(CLASSES))		\
 						$(addsuffix $(INTERF_INC_SUFFIX), $(INTERFACES))	\
 						$(addsuffix $(ABSTR_INC_SUFFIX), $(ABSTRACTS))		\
 						$(addsuffix $(TEMPL_INC_SUFFIX), $(TEMPLATES)) 		\
-						ErrorMsg.hpp
+						ErrorMsg.hpp \
+						IAction.hpp
 
 SRC_FILES			=	$(addsuffix $(CLASS_SRC_SUFFIX), $(CLASSES))		\
 						$(addsuffix $(INTERF_SRC_SUFFIX), $(INTERFACES))	\
