@@ -1,6 +1,7 @@
 #include "ActionIncantation.hpp"
 
-ActionIncantation::ActionIncantation()
+ActionIncantation::ActionIncantation(Client *client) :
+	_client(client)
 {
 
 }
@@ -23,7 +24,7 @@ std::string	ActionIncantation::toString() const
 ActionIncantation&	ActionIncantation::operator=(ActionIncantation const &copy)
 {
 	if (this != &copy)
-		(void)copy;
+		_client = copy._client;
 	return *this;
 }
 
@@ -31,4 +32,17 @@ std::ostream	&operator<<(std::ostream &o, ActionIncantation const &i)
 {
 	o << i.toString();
 	return o;
+}
+
+void	ActionIncantation::execute(Network &network)
+{
+	std::string			data;
+
+	data = network.send("incantation\n");
+
+	if (data == "elevation en cours\n")
+	{
+		data = network.recieve();
+		_client->setLevel(_client->getLevel() + 1);
+	}
 }

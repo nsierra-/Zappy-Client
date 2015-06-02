@@ -32,3 +32,8 @@ std::ostream	&operator<<(std::ostream &o, ActionExpulse const &i)
 	o << i.toString();
 	return o;
 }
+
+void	ActionExpulse::execute(Network &network)
+{
+	network.send("expulse\n");
+}

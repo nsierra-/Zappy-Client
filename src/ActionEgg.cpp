@@ -32,3 +32,8 @@ std::ostream	&operator<<(std::ostream &o, ActionEgg const &i)
 	o << i.toString();
 	return o;
 }
+
+void	ActionEgg::execute(Network &network)
+{
+	network.send("fork\n");
+}
