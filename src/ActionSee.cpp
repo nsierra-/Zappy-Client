@@ -35,5 +35,15 @@ std::ostream	&operator<<(std::ostream &o, ActionSee const &i)
 
 void	ActionSee::execute(Network &network)
 {
-	network.send(SEE);
+	std::string ret;
+
+	ret = network.send(SEE);
+	/*
+	parse du retour en n string/inventaire
+	getplayerX/Y
+	set map[X][Y] = parse[0]
+	....
+	set map[X + ?][Y + ?] = parse[?]
+	*/
+	//si nourriture case 0 add prend nourriture
 }

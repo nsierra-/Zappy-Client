@@ -255,24 +255,33 @@ int				Client::_compos(int level)
 	std::map<std::string, size_t> &compo = _totems[level];
 	bool		ok = true;
 
+	// if (fov)
+	// {
+	// 	for (auto &kv : compo)
+	// 		{
+	// 		if (fov[0].find(kv.first, kv.second));
+				
+	// 		else
+	// 		{
+	// 			ok = false;
+	// 			break ;
+	// 		}
+	// 	}
+	// }
 	for (auto &kv : compo)
 	{
 		if (_inventory.has(kv.first, kv.second))
+		{
 			_actions.push_back(_createAction(IAction::DROP, kv.first));
+		}
 		else
 		{
 			ok = false;
 			break ;
 		}
 	}
-
 	if (!ok)
-	{
 		_actions.push_back(_createAction(IAction::SEE));
-		//if (_fov.find(Inventory::LINEMATE, 0))
-		//	ok = true;
-	}
-
 	return (ok == true);
 }
 
