@@ -8,7 +8,7 @@
 class ActionSee : public IAction
 {
 public:
-	ActionSee();
+	ActionSee(Client *client);
 	ActionSee(ActionSee const &);
 	virtual ~ActionSee();
 	std::string	toString() const;
@@ -16,6 +16,8 @@ public:
 	ActionSee&	operator=(ActionSee const &);
 
 	virtual void	execute(Network &network);
+private:
+	Client			*_client;
 };
 
 std::ostream	&operator<<(std::ostream &o, ActionSee const &i);
