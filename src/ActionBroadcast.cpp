@@ -18,7 +18,7 @@ ActionBroadcast::~ActionBroadcast()
 
 }
 
-std::string	ActionBroadcast::toString() const
+std::string		ActionBroadcast::toString() const
 {
 	std::stringstream	ss;
 
@@ -28,7 +28,7 @@ std::string	ActionBroadcast::toString() const
 	return ss.str();
 }
 
-ActionBroadcast&	ActionBroadcast::operator=(ActionBroadcast const &copy)
+ActionBroadcast	&ActionBroadcast::operator=(ActionBroadcast const &copy)
 {
 	if (this != &copy)
 		(void)copy;
@@ -41,7 +41,7 @@ std::ostream	&operator<<(std::ostream &o, ActionBroadcast const &i)
 	return o;
 }
 
-int	ActionBroadcast::execute(Network &network)
+int				ActionBroadcast::execute(Network &network)
 {
 	std::string		ret;
 

@@ -15,7 +15,7 @@ ActionExpulse::~ActionExpulse()
 
 }
 
-std::string	ActionExpulse::toString() const
+std::string		ActionExpulse::toString() const
 {
 	return "ActionExpulse";
 }
@@ -33,7 +33,7 @@ std::ostream	&operator<<(std::ostream &o, ActionExpulse const &i)
 	return o;
 }
 
-int	ActionExpulse::execute(Network &network)
+int				ActionExpulse::execute(Network &network)
 {
 	std::string	ret;
 

@@ -27,7 +27,7 @@
 const std::regex	Client::_serverInfosFormat("(\\d+)\\n(\\d+) (\\d+)\\n");
 
 std::vector<std::map<std::string, size_t> >	Client::_totems =
-	{
+{
 		{
 			{  }
 		},
@@ -87,7 +87,7 @@ Client::Client(unsigned int port, std::string teamName, std::string hostName) :
 	_inventory.add(Inventory::FOOD, 10);
 }
 
-Client::Client(Client const & src) :
+Client::Client(Client const &src) :
 _teamName(src._teamName)
 {
 	*this = src;
@@ -99,14 +99,14 @@ Client::~Client(void)
 	delete _network;
 }
 
-Client	&Client::operator=(Client const & rhs)
+Client				&Client::operator=(Client const &rhs)
 {
 	if (this != &rhs)
 		_network = new Network(*(rhs._network));
 	return *this;
 }
 
-Action					*Client::_createAction(const std::string & action)
+Action				*Client::_createAction(const std::string &action)
 {
 	if (action == Action::SEE)
 		return new ActionSee(this);
@@ -119,12 +119,12 @@ Action					*Client::_createAction(const std::string & action)
 	return nullptr;
 }
 
-Action					*Client::_createAction(enum eDirection dir)
+Action				*Client::_createAction(enum eDirection dir)
 {
 	return new ActionMove(dir);
 }
 
-Action					*Client::_createAction(const std::string & action, const std::string &str)
+Action				*Client::_createAction(const std::string &action, const std::string &str)
 {
 	if (action == Action::TAKE)
 		return new ActionTake(str, _inventory);
@@ -135,7 +135,7 @@ Action					*Client::_createAction(const std::string & action, const std::string 
 	return nullptr;
 }
 
-bool	Client::loop(void)
+bool				Client::loop(void)
 {
 	std::string msg;
 
@@ -154,10 +154,10 @@ bool	Client::loop(void)
 	return true;
 }
 
-void	Client::printDebug(const std::string & msg)
+void				Client::printDebug(const std::string &msg)
 {
 	std::locale::global(std::locale(""));
-    std::time_t t = std::time(NULL);
+	std::time_t t = std::time(NULL);
 
 	char	mbstr[100] = { '\0' };
 
@@ -165,14 +165,14 @@ void	Client::printDebug(const std::string & msg)
 	_ofs << "[" << mbstr << "] " << getpid() << " " << msg << std::endl;
 }
 
-void	Client::hasDied(void)
+void				Client::hasDied(void)
 {
 	printDebug("Client is dead.");
 	_network->close();
 	exit(EXIT_SUCCESS);
 }
 
-void	Client::recieveBroadcast(const std::string & msg)
+void				Client::recieveBroadcast(const std::string &msg)
 {
 	//regex parse msg
 	//	 message
@@ -203,7 +203,7 @@ void	Client::recieveBroadcast(const std::string & msg)
 		// }
 }
 
-void	Client::_ia(void)
+void				Client::_ia(void)
 {
 		if (_compos(_level) && _inventory["nourriture"] > 4)
 		{
@@ -216,7 +216,7 @@ void	Client::_ia(void)
 		_playMove();
 }
 
-void			Client::_playMove(void)
+void				Client::_playMove(void)
 {
 	int			tmp;
 	int			i	= 0;
@@ -246,7 +246,7 @@ void			Client::_playMove(void)
 	// _actions.clear();
 }
 
-void			Client::_search(void)
+void				Client::_search(void)
 {
 	// std::string dir;
 	// int 		players;
@@ -260,22 +260,22 @@ void			Client::_search(void)
 }
 
 
-void			Client::_composFind(int level)
+void				Client::_composFind(int level)
 {
 	(void)level;
 	//if nourriture take nourriture
 	//take compos for all level
 }
 
-int				Client::_compos(int level)
+int					Client::_compos(int level)
 {
 	std::map<std::string, size_t> &compo = _totems[level];
 	bool		ok = true;
 
 	if (fov[0].size())
 	{
-	 	for (auto &kv : compo)
-	 		{
+		for (auto &kv : compo)
+			{
 			if (fov[0].find(kv.first))
 				ok = true;
 			else
@@ -305,7 +305,7 @@ int				Client::_compos(int level)
 	return (ok == true);
 }
 
-void			Client::_forkstem(void)
+void				Client::_forkstem(void)
 {
 	pid_t		pid = fork();
 
@@ -324,24 +324,7 @@ void			Client::_forkstem(void)
 	}
 }
 
-// void					Client::_updateInventory(const std::string &obj, int qty)
-// {
-// 	_inventory[obj] += qty;
-// }
-
-// int						Client::_inInventory(const std::string &name, size_t qty)
-// {
-// 	return (_inventory[name] >= qty);
-// }
-
-// void					Client::_updateInventory(void)
-// {
-// 	std::string			data;
-
-// 	data = _network->send("inventaire");
-// }
-
-void			Client::_loadServerInfos(const std::string &infos)
+void				Client::_loadServerInfos(const std::string &infos)
 {
 	std::smatch	sm;
 	std::string	tmp;
@@ -357,7 +340,7 @@ void			Client::_loadServerInfos(const std::string &infos)
 	tmp = sm[3],  _mapY = strtol(tmp.c_str(), NULL, 10);
 }
 
-std::string    Client::_sendTeamInfo(void)
+std::string    		Client::_sendTeamInfo(void)
 {
 	std::string     msg(_network->recieve());
 
@@ -375,7 +358,7 @@ unsigned int	Client::getLevel() const
 	return _level;
 }
 
-void	Client::setLevel(unsigned int val)
+void			Client::setLevel(unsigned int val)
 {
 	_level = val;
 }
