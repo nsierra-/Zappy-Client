@@ -109,7 +109,7 @@ Client	&Client::operator=(Client const & rhs)
 IAction					*Client::_createAction(const std::string & action)
 {
 	if (action == IAction::SEE)
-		return new ActionSee();
+		return new ActionSee(this);
 	if (action == IAction::EXPULSE)
 		return new ActionExpulse();
 	if (action == IAction::INCANTATION)
