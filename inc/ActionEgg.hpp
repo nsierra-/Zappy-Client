@@ -15,7 +15,7 @@ public:
 
 	ActionEgg&	operator=(ActionEgg const &);
 
-	virtual void	execute(Network &network);
+	virtual int		execute(Network &network);
 };
 
 std::ostream	&operator<<(std::ostream &o, ActionEgg const &i);

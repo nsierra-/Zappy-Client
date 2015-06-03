@@ -18,7 +18,7 @@ public:
 
 	ActionTake&	operator=(ActionTake const &);
 
-	virtual void	execute(Network &network);
+	virtual int	execute(Network &network);
 
 private:
 	std::string		_obj;

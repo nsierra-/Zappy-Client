@@ -2,7 +2,7 @@
 //             .'         `.
 //            :             :        File       : Network.cpp
 //           :               :       Creation   : 2015-05-21 01:08:12
-//           :      _/|      :       Last Edit  : 2015-06-02 20:33:58
+//           :      _/|      :       Last Edit  : 2015-06-04 01:12:09
 //            :   =/_/      :        Author     : nsierra-
 //             `._/ |     .'         Mail       : nsierra-@student.42.fr
 //          (   /  ,|...-'
@@ -29,6 +29,7 @@ const std::string	Network::MSG_FAILURE = "ko\n";
 const std::string	Network::MSG_DEATH = "mort\n";
 const std::string	Network::MSG_BROADCAST = "message ";
 const std::string	Network::MSG_ELEVATION = "elevation en cours\n";
+const std::string	Network::MSG_CURRENT_LVL = "niveau actuel ";
 const std::string	Network::MSG_WELCOME = "BIENVENUE\n";
 
 Network::Network(Client *client, unsigned int port, std::string hostName) :

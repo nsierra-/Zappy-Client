@@ -2,7 +2,7 @@
 //             .'         `.
 //            :             :        File       : Network.hpp
 //           :               :       Creation   : 2015-05-21 01:03:30
-//           :      _/|      :       Last Edit  : 2015-06-02 20:33:45
+//           :      _/|      :       Last Edit  : 2015-06-04 01:12:19
 //            :   =/_/      :        Author     : nsierra-
 //             `._/ |     .'         Mail       : nsierra-@student.42.fr
 //          (   /  ,|...-'
@@ -34,6 +34,7 @@ class	Network
 		static const std::string	MSG_DEATH;
 		static const std::string	MSG_BROADCAST;
 		static const std::string	MSG_ELEVATION;
+		static const std::string	MSG_CURRENT_LVL;
 		static const std::string	MSG_WELCOME;
 
 		bool				isConnected(void);

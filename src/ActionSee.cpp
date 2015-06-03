@@ -34,7 +34,7 @@ std::ostream	&operator<<(std::ostream &o, ActionSee const &i)
 	return o;
 }
 
-void	ActionSee::execute(Network &network)
+int		ActionSee::execute(Network &network)
 {
 	std::string ret;
 	std::string tmp;
@@ -45,6 +45,7 @@ void	ActionSee::execute(Network &network)
 		std::regex re("([\\w \\s]*)[,}]");
 		std::sregex_iterator next(ret.begin(), ret.end(), re);
 		std::sregex_iterator end;
+
 		while (next != end)
 		{
 			std::smatch match = *next;
@@ -55,11 +56,13 @@ void	ActionSee::execute(Network &network)
 			//add to map
 			_client->printDebug(tmp);
 			next++;
-		} 
+		}
+
+		return _successIndex;
 	} 
 	catch (std::regex_error& e)
-	{
-	}
+	{ }
+	return _failIndex;
 	/*
 	parse du retour en n string/inventaire
 	getplayerX/Y

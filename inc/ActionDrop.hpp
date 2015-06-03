@@ -18,7 +18,7 @@ class ActionDrop : public IAction
 
 		ActionDrop&	operator=(ActionDrop const &);
 
-		virtual void	execute(Network &network);
+		virtual int			execute(Network &network);
 
 	private:
 		const std::string	_object;

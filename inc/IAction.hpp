@@ -2,7 +2,7 @@
 //             .'         `.
 //            :             :        File       : IAction.hpp
 //           :               :       Creation   : 2015-06-02 01:22:19
-//           :      _/|      :       Last Edit  : 2015-06-02 20:49:43
+//           :      _/|      :       Last Edit  : 2015-06-04 01:20:29
 //            :   =/_/      :        Author     : nsierra-
 //             `._/ |     .'         Mail       : nsierra-@student.42.fr
 //          (   /  ,|...-'
@@ -22,7 +22,9 @@ class Network;
 class	IAction
 {
 	public:
-		virtual void	execute(Network &network) = 0;
+		IAction();
+
+		virtual int		execute(Network &network) = 0;
 
 		virtual 		~IAction(void) {};
 
@@ -36,6 +38,16 @@ class	IAction
 		static const std::string	MOVE_RIGHT;
 		static const std::string	SEE;
 		static const std::string	TAKE;
+
+		void		setSuccessIndex(int);
+		void		setFailureIndex(int);
+		int			getSuccessIndex(void);
+		int			getFailureIndex(void);
+
+
+	protected:
+		int			_successIndex;
+		int			_failIndex;
 };
 
 #endif /* IACTION_HPP */

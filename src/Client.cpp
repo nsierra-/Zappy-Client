@@ -2,7 +2,7 @@
 //             .'         `.
 //            :             :        File       : Client.cpp
 //           :               :       Creation   : 2015-05-21 00:44:59
-//           :      _/|      :       Last Edit  : 2015-06-02 20:50:16
+//           :      _/|      :       Last Edit  : 2015-06-04 01:23:53
 //            :   =/_/      :        Author     : nsierra-
 //             `._/ |     .'         Mail       : nsierra-@student.42.fr
 //          (   /  ,|...-'
@@ -221,12 +221,32 @@ void	Client::_ia(void)
 
 void			Client::_playMove(void)
 {
-	for (auto &action : _actions)
+	int			tmp;
+	int			i	= 0;
+	size_t		max	= _actions.size();
+
+	while (i >= 0 && static_cast<size_t>(i) < max)
 	{
-		action->execute(*_network);
-		delete action;
+		printDebug(std::to_string(i));
+		tmp = _actions[static_cast<size_t>(i)]->execute(*_network);
+
+		if (tmp == -2)
+			break ;
+		i = tmp == -1 ? i + 1 : tmp;
 	}
+
+	for (auto &a : _actions)
+		delete a;
 	_actions.clear();
+	// int			tmp;
+
+	// tmp = 0;
+	// for (auto &action : _actions)
+	// {
+	// 	tmp = tmp != -1 ? action->execute(*_network) : -1;
+	// 	delete action;
+	// }
+	// _actions.clear();
 }
 
 void			Client::_search(void)

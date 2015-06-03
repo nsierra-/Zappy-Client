@@ -15,7 +15,7 @@ public:
 
 	ActionSee&	operator=(ActionSee const &);
 
-	virtual void	execute(Network &network);
+	virtual int	execute(Network &network);
 private:
 	Client			*_client;
 };

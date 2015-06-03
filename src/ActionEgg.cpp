@@ -33,7 +33,13 @@ std::ostream	&operator<<(std::ostream &o, ActionEgg const &i)
 	return o;
 }
 
-void	ActionEgg::execute(Network &network)
+int	ActionEgg::execute(Network &network)
 {
-	network.send(EGG);
+	std::string		ret;
+
+	ret = network.send(EGG);
+
+	if (ret == Network::MSG_SUCCESS)
+		return _successIndex;
+	return _failIndex;
 }

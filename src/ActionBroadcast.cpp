@@ -41,7 +41,13 @@ std::ostream	&operator<<(std::ostream &o, ActionBroadcast const &i)
 	return o;
 }
 
-void	ActionBroadcast::execute(Network &network)
+int	ActionBroadcast::execute(Network &network)
 {
-	network.send(BROADCAST + _msg);
+	std::string		ret;
+
+	ret = network.send(BROADCAST + _msg);
+
+	if (ret == Network::MSG_SUCCESS)
+		return _successIndex;
+	return _failIndex;
 }

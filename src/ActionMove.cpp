@@ -42,7 +42,13 @@ std::ostream	&operator<<(std::ostream &o, ActionMove const &i)
 	return o;
 }
 
-void	ActionMove::execute(Network &network)
+int	ActionMove::execute(Network &network)
 {
-	network.send(_directionMap[_dir]);
+	std::string		ret;
+
+	ret = network.send(_directionMap[_dir]);
+
+	if (ret == Network::MSG_SUCCESS)
+		return _successIndex;
+	return _failIndex;
 }
