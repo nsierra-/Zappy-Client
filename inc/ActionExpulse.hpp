@@ -3,9 +3,9 @@
 
 #include <string>
 #include <iostream>
-#include "IAction.hpp"
+#include "Action.hpp"
 
-class ActionExpulse : public IAction
+class ActionExpulse : public Action
 {
 public:
 	ActionExpulse();
@@ -13,11 +13,11 @@ public:
 	virtual ~ActionExpulse();
 	std::string	toString() const;
 
-	ActionExpulse&	operator=(ActionExpulse const &);
+	ActionExpulse	&operator=(ActionExpulse const &);
 
-	virtual int	execute(Network &network);
+	virtual int	execute(Network &);
 };
 
-std::ostream	&operator<<(std::ostream &o, ActionExpulse const &i);
+std::ostream	&operator<<(std::ostream &, ActionExpulse const &);
 
 #endif /*ACTIONEXPULSE_HEADER*/

@@ -42,7 +42,7 @@ std::ostream	&operator<<(std::ostream &o, ActionTake const & i)
 
 int	ActionTake::execute(Network &network)
 {
-	std::string			message = IAction::TAKE;
+	std::string			message = Action::TAKE;
 	std::string			data;
 
 	message += _obj;

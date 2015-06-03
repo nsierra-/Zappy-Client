@@ -3,23 +3,23 @@
 
 #include <string>
 #include <iostream>
-#include "IAction.hpp"
+#include "Action.hpp"
 
-class ActionSee : public IAction
+class ActionSee : public Action
 {
 public:
-	ActionSee(Client *client);
+	ActionSee(Client *);
 	ActionSee(ActionSee const &);
 	virtual ~ActionSee();
 	std::string	toString() const;
 
-	ActionSee&	operator=(ActionSee const &);
+	ActionSee	&operator=(ActionSee const &);
 
-	virtual int	execute(Network &network);
+	virtual int	execute(Network &);
 private:
 	Client			*_client;
 };
 
-std::ostream	&operator<<(std::ostream &o, ActionSee const &i);
+std::ostream	&operator<<(std::ostream &, ActionSee const &);
 
 #endif /*ACTIONSEE_HEADER*/

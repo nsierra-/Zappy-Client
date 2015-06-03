@@ -3,28 +3,28 @@
 
 #include <string>
 #include <iostream>
-#include "IAction.hpp"
+#include "Action.hpp"
 #include "Inventory.hpp"
 
 class Inventory;
 
-class ActionDrop : public IAction
+class ActionDrop : public Action
 {
-	public:
-		ActionDrop(const std::string &obj, Inventory & inventory);
-		ActionDrop(ActionDrop const &);
-		virtual ~ActionDrop();
-		std::string	toString() const;
+public:
+	ActionDrop(const std::string &, Inventory &);
+	ActionDrop(ActionDrop const &);
+	virtual ~ActionDrop();
+	std::string	toString() const;
 
-		ActionDrop&	operator=(ActionDrop const &);
+	ActionDrop	&operator=(ActionDrop const &);
 
-		virtual int			execute(Network &network);
+	virtual int			execute(Network &);
 
-	private:
-		const std::string	_object;
-		Inventory			&_inventory;
+private:
+	const std::string	_object;
+	Inventory			&_inventory;
 };
 
-std::ostream	&operator<<(std::ostream &o, ActionDrop const &i);
+std::ostream	&operator<<(std::ostream &, ActionDrop const &);
 
 #endif /*ACTIONDROP_HEADER*/

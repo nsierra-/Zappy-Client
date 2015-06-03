@@ -3,27 +3,27 @@
 
 #include <string>
 #include <iostream>
-#include "IAction.hpp"
+#include "Action.hpp"
 #include "Client.hpp"
 
 class Client;
 
-class ActionIncantation : public IAction
+class ActionIncantation : public Action
 {
 public:
-	ActionIncantation(Client *client);
+	ActionIncantation(Client *);
 	ActionIncantation(ActionIncantation const &);
 	virtual ~ActionIncantation();
 	std::string	toString() const;
 
-	ActionIncantation&	operator=(ActionIncantation const &);
+	ActionIncantation &operator=(ActionIncantation const &);
 
-	virtual int	execute(Network &network);
+	virtual int	execute(Network &);
 
 private:
 	Client			*_client;
 };
 
-std::ostream	&operator<<(std::ostream &o, ActionIncantation const &i);
+std::ostream	&operator<<(std::ostream &, ActionIncantation const &);
 
 #endif /*ACTIONINCANTATION_HEADER*/
