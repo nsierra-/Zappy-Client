@@ -15,25 +15,25 @@ ActionEgg::~ActionEgg()
 
 }
 
-std::string	ActionEgg::toString() const
+std::string		ActionEgg::toString() const
 {
 	return "ActionEgg";
 }
 
-ActionEgg&	ActionEgg::operator=(ActionEgg const &copy)
+ActionEgg		&ActionEgg::operator=(ActionEgg const &copy)
 {
 	if (this != &copy)
 		(void)copy;
 	return *this;
 }
 
-std::ostream	&operator<<(std::ostream &o, ActionEgg const &i)
+std::ostream	&operator<<(std::ostream &o, const ActionEgg &i)
 {
 	o << i.toString();
 	return o;
 }
 
-int	ActionEgg::execute(Network &network)
+int				ActionEgg::execute(Network &network)
 {
 	std::string		ret;
 

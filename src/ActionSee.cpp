@@ -16,12 +16,12 @@ ActionSee::~ActionSee()
 
 }
 
-std::string	ActionSee::toString() const
+std::string		ActionSee::toString() const
 {
 	return "ActionSee";
 }
 
-ActionSee&	ActionSee::operator=(ActionSee const &copy)
+ActionSee&		ActionSee::operator=(ActionSee const &copy)
 {
 	if (this != &copy)
 		_client = copy._client;
@@ -34,7 +34,7 @@ std::ostream	&operator<<(std::ostream &o, ActionSee const &i)
 	return o;
 }
 
-int		ActionSee::execute(Network &network)
+int				ActionSee::execute(Network &network)
 {
 	std::string ret;
 	std::string tmp;
@@ -63,7 +63,7 @@ int		ActionSee::execute(Network &network)
 		}
 
 		return _successIndex;
-	} 
+	}
 	catch (std::regex_error& e)
 	{ }
 	return _failIndex;

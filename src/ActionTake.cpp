@@ -1,13 +1,13 @@
 #include "ActionTake.hpp"
 
-ActionTake::ActionTake(const std::string &obj, Inventory & inventory) :
+ActionTake::ActionTake(const std::string &obj, Inventory &inventory) :
 	_obj(obj),
 	_inventory(inventory)
 {
 
 }
 
-ActionTake::ActionTake(ActionTake const & model) :
+ActionTake::ActionTake(ActionTake const &model) :
 	_obj(model._obj),
 	_inventory(model._inventory)
 {
@@ -19,12 +19,12 @@ ActionTake::~ActionTake()
 
 }
 
-std::string	ActionTake::toString() const
+std::string		ActionTake::toString() const
 {
 	return "ActionTake";
 }
 
-ActionTake&	ActionTake::operator=(ActionTake const & copy)
+ActionTake		&ActionTake::operator=(ActionTake const &copy)
 {
 	if (this != &copy)
 	{
@@ -34,7 +34,7 @@ ActionTake&	ActionTake::operator=(ActionTake const & copy)
 	return *this;
 }
 
-std::ostream	&operator<<(std::ostream &o, ActionTake const & i)
+std::ostream	&operator<<(std::ostream &o, ActionTake const &i)
 {
 	o << i.toString();
 	return o;

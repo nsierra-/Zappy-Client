@@ -1,6 +1,6 @@
 #include "ActionMove.hpp"
 
-std::map<enum eDirection, std::string>	ActionMove::_directionMap = 
+std::map<enum eDirection, std::string>	ActionMove::_directionMap =
 	{
 		{ UP,			MOVE_FORWARD },
 		{ TURN_LEFT,	MOVE_LEFT },
@@ -24,12 +24,12 @@ ActionMove::~ActionMove()
 
 }
 
-std::string	ActionMove::toString() const
+std::string		ActionMove::toString() const
 {
 	return "ActionMove";
 }
 
-ActionMove&	ActionMove::operator=(ActionMove const &copy)
+ActionMove		&ActionMove::operator=(ActionMove const &copy)
 {
 	if (this != &copy)
 		(void)copy;
@@ -42,7 +42,7 @@ std::ostream	&operator<<(std::ostream &o, ActionMove const &i)
 	return o;
 }
 
-int	ActionMove::execute(Network &network)
+int				ActionMove::execute(Network &network)
 {
 	std::string		ret;
 

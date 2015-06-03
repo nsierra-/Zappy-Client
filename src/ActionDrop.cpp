@@ -1,14 +1,14 @@
 #include "ActionDrop.hpp"
 #include <sstream>
 
-ActionDrop::ActionDrop(const std::string &obj, Inventory & inventory) :
+ActionDrop::ActionDrop(const std::string &obj, Inventory &inventory) :
 	_object(obj),
 	_inventory(inventory)
 {
 
 }
 
-ActionDrop::ActionDrop(ActionDrop const & model) :
+ActionDrop::ActionDrop(ActionDrop const &model) :
 	_object(model._object),
 	_inventory(model._inventory)
 {
@@ -20,7 +20,7 @@ ActionDrop::~ActionDrop()
 
 }
 
-std::string	ActionDrop::toString() const
+std::string		ActionDrop::toString() const
 {
 	std::stringstream	ss;
 
@@ -30,20 +30,20 @@ std::string	ActionDrop::toString() const
 	return ss.str();
 }
 
-ActionDrop&	ActionDrop::operator=(ActionDrop const & copy)
+ActionDrop		&ActionDrop::operator=(ActionDrop const &copy)
 {
 	if (this != &copy)
 		(void)copy;
 	return *this;
 }
 
-std::ostream	&operator<<(std::ostream & o, ActionDrop const &i)
+std::ostream	&operator<<(std::ostream &o, ActionDrop const &i)
 {
 	o << i.toString();
 	return o;
 }
 
-int	ActionDrop::execute(Network &network)
+int				ActionDrop::execute(Network &network)
 {
 	std::string			message = DROP;
 	std::string			data;

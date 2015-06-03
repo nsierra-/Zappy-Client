@@ -16,25 +16,25 @@ ActionIncantation::~ActionIncantation()
 
 }
 
-std::string	ActionIncantation::toString() const
+std::string			ActionIncantation::toString() const
 {
 	return "ActionIncantation";
 }
 
-ActionIncantation&	ActionIncantation::operator=(ActionIncantation const &copy)
+ActionIncantation	&ActionIncantation::operator=(ActionIncantation const &copy)
 {
 	if (this != &copy)
 		_client = copy._client;
 	return *this;
 }
 
-std::ostream	&operator<<(std::ostream &o, ActionIncantation const &i)
+std::ostream		&operator<<(std::ostream &o, ActionIncantation const &i)
 {
 	o << i.toString();
 	return o;
 }
 
-int	ActionIncantation::execute(Network &network)
+int					ActionIncantation::execute(Network &network)
 {
 	std::string			data;
 

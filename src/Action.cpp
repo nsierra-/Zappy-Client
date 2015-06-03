@@ -31,7 +31,7 @@ Action::Action() :
 
 }
 
-void		Action::setSuccessIndex(int n) {  _successIndex = n; }
-void		Action::setFailureIndex(int n) {  _failIndex = n; }
+void		Action::setSuccessIndex(int n) 	{  _successIndex = n; }
+void		Action::setFailureIndex(int n) 	{  _failIndex = n; }
 int			Action::getSuccessIndex(void) 	{  return _successIndex; }
 int			Action::getFailureIndex(void) 	{  return _failIndex; }
