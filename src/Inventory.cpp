@@ -2,7 +2,7 @@
 //             .'         `.
 //            :             :        File       : Inventory.cpp
 //           :               :       Creation   : 2015-06-02 18:59:27
-//           :      _/|      :       Last Edit  : 2015-06-02 20:42:31
+//           :      _/|      :       Last Edit  : 2015-06-04 01:32:09
 //            :   =/_/      :        Author     : nsierra-
 //             `._/ |     .'         Mail       : nsierra-@student.42.fr
 //          (   /  ,|...-'
@@ -61,6 +61,11 @@ std::ostream	&operator<<(std::ostream &o, Inventory const &i)
 {
 	o << i.toString();
 	return o;
+}
+
+void	Inventory::set(const std::string & obj, size_t qty)
+{
+	_data[obj] = qty;
 }
 
 bool	Inventory::has(const std::string & obj, size_t qty)

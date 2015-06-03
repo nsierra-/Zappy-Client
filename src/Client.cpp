@@ -2,7 +2,7 @@
 //             .'         `.
 //            :             :        File       : Client.cpp
 //           :               :       Creation   : 2015-05-21 00:44:59
-//           :      _/|      :       Last Edit  : 2015-06-04 01:23:53
+//           :      _/|      :       Last Edit  : 2015-06-04 01:53:50
 //            :   =/_/      :        Author     : nsierra-
 //             `._/ |     .'         Mail       : nsierra-@student.42.fr
 //          (   /  ,|...-'
@@ -140,20 +140,17 @@ bool	Client::loop(void)
 	std::string msg;
 	
 	_loadServerInfos(_sendTeamInfo());
-	while (42)
-	{
-		if (strtol(_network->send("connect_nbr").c_str(), NULL, 10))
+		while (strtol(_network->send("connect_nbr").c_str(), NULL, 10))
 		{
 			printDebug("FORKSTEM");
 			_forkstem();
 		}
-		else 
+		while (~0)
 		{
 			_ia();
 			
-			_network->recieve();
+			// _network->recieve();
 		}
-	}
 	return true;
 }
 
@@ -227,7 +224,7 @@ void			Client::_playMove(void)
 
 	while (i >= 0 && static_cast<size_t>(i) < max)
 	{
-		printDebug(std::to_string(i));
+		// printDebug(std::to_string(i));
 		tmp = _actions[static_cast<size_t>(i)]->execute(*_network);
 
 		if (tmp == -2)
@@ -275,29 +272,32 @@ int				Client::_compos(int level)
 	std::map<std::string, size_t> &compo = _totems[level];
 	bool		ok = true;
 
-	// if (fov)
-	// {
-	// 	for (auto &kv : compo)
-	// 		{
-	// 		if (fov[0].find(kv.first, kv.second));
-				
-	// 		else
-	// 		{
-	// 			ok = false;
-	// 			break ;
-	// 		}
-	// 	}
-	// }
-	for (auto &kv : compo)
+	if (fov[0].size())
 	{
-		if (_inventory.has(kv.first, kv.second))
-		{
-			_actions.push_back(_createAction(IAction::DROP, kv.first));
+	 	for (auto &kv : compo)
+	 		{
+			if (fov[0].find(kv.first))
+				ok = true;
+			else
+			{
+				ok = false;
+				break ;
+			}
 		}
-		else
+	}
+	if (!ok)
+	{
+		for (auto &kv : compo)
 		{
-			ok = false;
-			break ;
+			if (_inventory.has(kv.first, kv.second))
+			{
+				_actions.push_back(_createAction(IAction::DROP, kv.first));
+			}
+			else
+			{
+				ok = false;
+				break ;
+			}
 		}
 	}
 	if (!ok)
