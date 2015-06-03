@@ -2,7 +2,7 @@
 //             .'         `.
 //            :             :        File       : Client.hpp
 //           :               :       Creation   : 2015-05-21 00:43:58
-//           :      _/|      :       Last Edit  : 2015-06-04 01:19:25
+//           :      _/|      :       Last Edit  : 2015-06-04 01:49:59
 //            :   =/_/      :        Author     : nsierra-
 //             `._/ |     .'         Mail       : nsierra-@student.42.fr
 //          (   /  ,|...-'
@@ -59,6 +59,7 @@ class	Client
 	size_t	_playerY;
 	size_t	getplayerY() const;
 	void	setplayerY(size_t &val);
+	std::map<size_t, std::string>  fov;
 	//vector ??
 	std::map<size_t, std::map<size_t, std::string> > _map; //inventaire ??
 

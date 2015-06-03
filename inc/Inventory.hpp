@@ -2,7 +2,7 @@
 //             .'         `.
 //            :             :        File       : Inventory.hpp
 //           :               :       Creation   : 2015-06-02 18:57:56
-//           :      _/|      :       Last Edit  : 2015-06-02 20:36:04
+//           :      _/|      :       Last Edit  : 2015-06-04 01:31:25
 //            :   =/_/      :        Author     : nsierra-
 //             `._/ |     .'         Mail       : nsierra-@student.42.fr
 //          (   /  ,|...-'
@@ -39,6 +39,7 @@ public:
 
 	bool	has(const std::string &, size_t = 1);
 	void	add(const std::string &, int = 1);
+	void	set(const std::string &, size_t);
 
 private:
 	std::map<std::string, size_t>	_data;

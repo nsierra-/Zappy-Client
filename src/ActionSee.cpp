@@ -38,6 +38,7 @@ int		ActionSee::execute(Network &network)
 {
 	std::string ret;
 	std::string tmp;
+	int i = 0;
 
 	ret = network.send(SEE);
 	try
@@ -45,6 +46,7 @@ int		ActionSee::execute(Network &network)
 		std::regex re("([\\w \\s]*)[,}]");
 		std::sregex_iterator next(ret.begin(), ret.end(), re);
 		std::sregex_iterator end;
+
 
 		while (next != end)
 		{
@@ -54,8 +56,10 @@ int		ActionSee::execute(Network &network)
 				tmp = match.str().substr(1);
 			tmp.resize(tmp.size() - 1);
 			//add to map
+			_client->fov[i] = tmp;
 			_client->printDebug(tmp);
 			next++;
+			i++;
 		}
 
 		return _successIndex;
