@@ -45,6 +45,7 @@ public:
 	bool					loop(void);
 	void					hasDied(void);
 	void					recieveBroadcast(const std::string &);
+	Inventory				&getInventory(void);
 	unsigned int			getLevel() const;
 	void					setLevel(unsigned int);
 	void					setPlayerX(size_t &);
@@ -84,10 +85,6 @@ private:
 	void					_composFind(int);
 	void					_search(void);
 	void					_playMove(void);
-
-	Action					*_createAction(const std::string &);
-	Action					*_createAction(enum eDirection);
-	Action					*_createAction(const std::string &, const std::string &);
 };
 
 #endif /* CLIENT_HPP */

@@ -1,7 +1,6 @@
 #include "ActionTake.hpp"
 
-ActionTake::ActionTake(const std::string &obj, Inventory &inventory) :
-	_obj(obj),
+ActionTake::ActionTake(Inventory &inventory) :
 	_inventory(inventory)
 {
 
@@ -55,3 +54,6 @@ int	ActionTake::execute(Network &network)
 	}
 	return _failIndex;
 }
+
+void	ActionTake::setObject(const std::string &obj) { _obj = obj; }
+

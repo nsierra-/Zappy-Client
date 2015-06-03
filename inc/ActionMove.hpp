@@ -9,7 +9,7 @@
 class ActionMove : public Action
 {
 public:
-	ActionMove(enum eDirection);
+	ActionMove(enum eDirection = UP);
 	ActionMove(ActionMove const &);
 	virtual ~ActionMove();
 	std::string	toString() const;
@@ -17,6 +17,7 @@ public:
 	ActionMove	&operator=(ActionMove const &);
 
 	virtual int	execute(Network &network);
+	void		setDirection(enum eDirection);
 
 private:
   	static std::map<enum eDirection, std::string>		_directionMap;

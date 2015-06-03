@@ -1,8 +1,7 @@
 #include "ActionBroadcast.hpp"
 #include <sstream>
 
-ActionBroadcast::ActionBroadcast(const std::string &msg) :
-	_msg(msg)
+ActionBroadcast::ActionBroadcast()
 {
 
 }
@@ -50,4 +49,9 @@ int				ActionBroadcast::execute(Network &network)
 	if (ret == Network::MSG_SUCCESS)
 		return _successIndex;
 	return _failIndex;
+}
+
+void			ActionBroadcast::setMessage(const std::string &msg)
+{
+	_msg = msg;
 }

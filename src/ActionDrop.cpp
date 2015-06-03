@@ -1,8 +1,7 @@
 #include "ActionDrop.hpp"
 #include <sstream>
 
-ActionDrop::ActionDrop(const std::string &obj, Inventory &inventory) :
-	_object(obj),
+ActionDrop::ActionDrop(Inventory &inventory) :
 	_inventory(inventory)
 {
 
@@ -58,3 +57,5 @@ int				ActionDrop::execute(Network &network)
 	}
 	return _failIndex;
 }
+
+void			ActionDrop::setObject(const std::string &obj) { _object = obj; }

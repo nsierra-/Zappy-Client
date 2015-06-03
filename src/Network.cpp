@@ -29,7 +29,7 @@ const std::string	Network::MSG_FAILURE = "ko\n";
 const std::string	Network::MSG_DEATH = "mort\n";
 const std::string	Network::MSG_BROADCAST = "message ";
 const std::string	Network::MSG_ELEVATION = "elevation en cours\n";
-const std::string	Network::MSG_CURRENT_LVL = "niveau actuel ";
+const std::string	Network::MSG_CURRENT_LVL = "niveau actuel : ";
 const std::string	Network::MSG_WELCOME = "BIENVENUE\n";
 
 Network::Network(Client *client, unsigned int port, std::string hostName) :
