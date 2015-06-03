@@ -3,22 +3,22 @@
 
 #include <string>
 #include <iostream>
-#include "IAction.hpp"
+#include "Action.hpp"
 
-class ActionBroadcast : public IAction
+class ActionBroadcast : public Action
 {
-	public:
-		ActionBroadcast(const std::string &);
-		ActionBroadcast(ActionBroadcast const &);
-		virtual ~ActionBroadcast();
-		std::string	toString() const;
+public:
+	ActionBroadcast(const std::string &);
+	ActionBroadcast(ActionBroadcast const &);
+	virtual ~ActionBroadcast();
+	std::string	toString() const;
 
-		ActionBroadcast&	operator=(ActionBroadcast const &);
+	ActionBroadcast	&operator=(ActionBroadcast const &);
 
-		virtual int			execute(Network &network);
+	virtual int			execute(Network &);
 
-	private:
-		const std::string		_msg;
+private:
+	const std::string		_msg;
 };
 
 std::ostream	&operator<<(std::ostream &o, ActionBroadcast const &i);

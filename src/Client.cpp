@@ -106,31 +106,31 @@ Client	&Client::operator=(Client const & rhs)
 	return *this;
 }
 
-IAction					*Client::_createAction(const std::string & action)
+Action					*Client::_createAction(const std::string & action)
 {
-	if (action == IAction::SEE)
+	if (action == Action::SEE)
 		return new ActionSee(this);
-	if (action == IAction::EXPULSE)
+	if (action == Action::EXPULSE)
 		return new ActionExpulse();
-	if (action == IAction::INCANTATION)
+	if (action == Action::INCANTATION)
 		return new ActionIncantation(this);
-	if (action == IAction::EGG)
+	if (action == Action::EGG)
 		return new ActionEgg();
 	return nullptr;
 }
 
-IAction					*Client::_createAction(enum eDirection dir)
+Action					*Client::_createAction(enum eDirection dir)
 {
 	return new ActionMove(dir);
 }
 
-IAction					*Client::_createAction(const std::string & action, const std::string &str)
+Action					*Client::_createAction(const std::string & action, const std::string &str)
 {
-	if (action == IAction::TAKE)
+	if (action == Action::TAKE)
 		return new ActionTake(str, _inventory);
-	if (action == IAction::DROP)
+	if (action == Action::DROP)
 		return new ActionDrop(str, _inventory);
-	if (action == IAction::BROADCAST)
+	if (action == Action::BROADCAST)
 		return new ActionBroadcast(str);
 	return nullptr;
 }
@@ -138,7 +138,7 @@ IAction					*Client::_createAction(const std::string & action, const std::string
 bool	Client::loop(void)
 {
 	std::string msg;
-	
+
 	_loadServerInfos(_sendTeamInfo());
 		while (strtol(_network->send("connect_nbr").c_str(), NULL, 10))
 		{
@@ -148,7 +148,7 @@ bool	Client::loop(void)
 		while (~0)
 		{
 			_ia();
-			
+
 			// _network->recieve();
 		}
 	return true;
@@ -291,7 +291,7 @@ int				Client::_compos(int level)
 		{
 			if (_inventory.has(kv.first, kv.second))
 			{
-				_actions.push_back(_createAction(IAction::DROP, kv.first));
+				_actions.push_back(_createAction(Action::DROP, kv.first));
 			}
 			else
 			{
@@ -301,7 +301,7 @@ int				Client::_compos(int level)
 		}
 	}
 	if (!ok)
-		_actions.push_back(_createAction(IAction::SEE));
+		_actions.push_back(_createAction(Action::SEE));
 	return (ok == true);
 }
 

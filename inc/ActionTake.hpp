@@ -3,12 +3,12 @@
 
 # include <string>
 # include <iostream>
-# include "IAction.hpp"
+# include "Action.hpp"
 # include "Inventory.hpp"
 
 class Inventory;
 
-class ActionTake : public IAction
+class ActionTake : public Action
 {
 public:
 	ActionTake(const std::string &, Inventory &);
@@ -16,15 +16,15 @@ public:
 	virtual ~ActionTake();
 	std::string	toString() const;
 
-	ActionTake&	operator=(ActionTake const &);
+	ActionTake	&operator=(ActionTake const &);
 
-	virtual int	execute(Network &network);
+	virtual int	execute(Network &);
 
 private:
 	std::string		_obj;
 	Inventory &		_inventory;
 };
 
-std::ostream	&operator<<(std::ostream &o, ActionTake const &i);
+std::ostream	&operator<<(std::ostream &, ActionTake const &);
 
 #endif /*ACTIONTAKE_HEADER*/

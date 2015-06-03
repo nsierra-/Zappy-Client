@@ -3,10 +3,10 @@
 
 #include <string>
 #include <iostream>
-#include "IAction.hpp"
+#include "Action.hpp"
 #include "eDirection.hpp"
 
-class ActionMove : public IAction
+class ActionMove : public Action
 {
 public:
 	ActionMove(enum eDirection);
@@ -14,7 +14,7 @@ public:
 	virtual ~ActionMove();
 	std::string	toString() const;
 
-	ActionMove&	operator=(ActionMove const &);
+	ActionMove	&operator=(ActionMove const &);
 
 	virtual int	execute(Network &network);
 
@@ -23,6 +23,6 @@ private:
 	enum eDirection		_dir;
 };
 
-std::ostream	&operator<<(std::ostream &o, ActionMove const &i);
+std::ostream	&operator<<(std::ostream &, ActionMove const &);
 
 #endif /*ACTIONMOVE_HEADER*/

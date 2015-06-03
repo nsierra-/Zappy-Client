@@ -27,7 +27,7 @@ class	Network
 		Network(Client *, unsigned int, std::string = "localhost");
 		~Network(void);
 		Network(Network const & src);
-		Network &operator=(Network const & rhs);
+		Network &operator=(Network const &);
 
 		static const std::string	MSG_SUCCESS;
 		static const std::string	MSG_FAILURE;
@@ -56,7 +56,6 @@ class	Network
 		size_t				_sockaddr_len;
 
 		void				_connect(void);
-		
 		void				_initConnection(void);
 };
 

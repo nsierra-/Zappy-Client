@@ -14,10 +14,10 @@
 #ifndef EDIRECTION_HPP
 # define EDIRECTION_HPP
 
-	enum eDirection : int {
-		UP,
-		TURN_LEFT,
-		TURN_RIGHT
-	};
+enum eDirection : int {
+	UP,
+	TURN_LEFT,
+	TURN_RIGHT
+};
 
 #endif /* EDIRECTION_HPP */

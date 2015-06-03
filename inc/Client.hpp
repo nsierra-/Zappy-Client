@@ -20,45 +20,39 @@
 # include <fstream>
 # include "Network.hpp"
 # include "Inventory.hpp"
-# include "IAction.hpp"
+# include "Action.hpp"
 # include "eDirection.hpp"
 
 /*
 ** TODO NOE
-** 
+**
 ** - classe IA
 */
 
 class Network;
-class IAction;
+class Action;
 
 class	Client
 {
-	public:
-
-		Client(unsigned int,
-				std::string = "Default Team Name",
-				std::string = "localhost");
-		~Client(void);
-		Client(Client const & src);
-		Client &operator=(Client const & rhs);
+public:
+	Client(unsigned int,
+			std::string = "Default Team Name",
+			std::string = "localhost");
+	~Client(void);
+	Client(Client const &);
+	Client &operator=(Client const &);
 
 	bool					loop(void);
 	void					hasDied(void);
 	void					recieveBroadcast(const std::string &);
-	// void					_updateInventory(void);
-	// void					_updateInventory(const std::string &, int);
-
 	unsigned int			getLevel() const;
-	void					setLevel(unsigned int val);
+	void					setLevel(unsigned int);
+	void					setPlayerX(size_t &);
+	size_t					getPlayerY() const;
+	void					setPlayerY(size_t &);
 	// Gestion de la map perso beta
 
-	size_t	_playerX;
-	size_t	getplayerX() const;
-	void	setplayerX(size_t &val);
-	size_t	_playerY;
-	size_t	getplayerY() const;
-	void	setplayerY(size_t &val);
+	size_t					getPlayerX() const;
 	std::map<size_t, std::string>  fov;
 	//vector ??
 	std::map<size_t, std::map<size_t, std::string> > _map; //inventaire ??
@@ -66,20 +60,21 @@ class	Client
 
 	void					printDebug(const std::string &);
 
-  private:
+private:
+	static const std::regex								_serverInfosFormat;
+	static std::vector<std::map<std::string, size_t> >	_totems;
 
-  	static const std::regex								_serverInfosFormat;
-  	static std::vector<std::map<std::string, size_t> >	_totems;
-
-	const std::string				_teamName;
-	Network							*_network;
-	unsigned int					_level;
-	unsigned int					_availableConnections;
-	unsigned int					_mapX;
-	unsigned int					_mapY;
-	std::ofstream 					_ofs;
-	Inventory						_inventory;
-	std::vector<IAction *>			_actions;
+	const std::string		_teamName;
+	Network					*_network;
+	unsigned int			_level;
+	unsigned int			_availableConnections;
+	unsigned int			_mapX;
+	unsigned int			_mapY;
+	std::ofstream 			_ofs;
+	Inventory				_inventory;
+	std::vector<Action *>	_actions;
+	size_t					_playerX;
+	size_t					_playerY;
 
 	std::string				_sendTeamInfo(void);
 	void					_loadServerInfos(const std::string &);
@@ -90,9 +85,9 @@ class	Client
 	void					_search(void);
 	void					_playMove(void);
 
-	IAction					*_createAction(const std::string &);
-	IAction					*_createAction(enum eDirection);
-	IAction					*_createAction(const std::string &, const std::string &);
+	Action					*_createAction(const std::string &);
+	Action					*_createAction(enum eDirection);
+	Action					*_createAction(const std::string &, const std::string &);
 };
 
 #endif /* CLIENT_HPP */

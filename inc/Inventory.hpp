@@ -26,7 +26,7 @@ public:
 	Inventory(Inventory const &);
 
 	std::string	toString() const;
-	Inventory&	operator=(Inventory const &);
+	Inventory	&operator=(Inventory const &);
 	size_t 		operator[](const std::string &);
 
 	static const std::string	LINEMATE;
@@ -45,6 +45,6 @@ private:
 	std::map<std::string, size_t>	_data;
 };
 
-std::ostream	&operator<<(std::ostream &o, Inventory const &i);
+std::ostream	&operator<<(std::ostream &, Inventory const &);
 
 #endif /*INVENTORY_HPP*/
