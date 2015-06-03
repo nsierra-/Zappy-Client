@@ -15,7 +15,7 @@ class ActionBroadcast : public IAction
 
 		ActionBroadcast&	operator=(ActionBroadcast const &);
 
-		virtual void	execute(Network &network);
+		virtual int			execute(Network &network);
 
 	private:
 		const std::string		_msg;

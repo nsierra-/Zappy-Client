@@ -16,7 +16,7 @@ public:
 
 	ActionMove&	operator=(ActionMove const &);
 
-	virtual void	execute(Network &network);
+	virtual int	execute(Network &network);
 
 private:
   	static std::map<enum eDirection, std::string>		_directionMap;

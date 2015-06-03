@@ -18,7 +18,7 @@ public:
 
 	ActionIncantation&	operator=(ActionIncantation const &);
 
-	virtual void	execute(Network &network);
+	virtual int	execute(Network &network);
 
 private:
 	Client			*_client;

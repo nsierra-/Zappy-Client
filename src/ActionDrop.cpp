@@ -43,7 +43,7 @@ std::ostream	&operator<<(std::ostream & o, ActionDrop const &i)
 	return o;
 }
 
-void	ActionDrop::execute(Network &network)
+int	ActionDrop::execute(Network &network)
 {
 	std::string			message = DROP;
 	std::string			data;
@@ -52,5 +52,9 @@ void	ActionDrop::execute(Network &network)
 	data = network.send(message);
 
 	if (data == Network::MSG_SUCCESS)
+	{
 		_inventory.add(_object, -1);
+		return _successIndex;
+	}
+	return _failIndex;
 }

@@ -15,7 +15,7 @@ public:
 
 	ActionExpulse&	operator=(ActionExpulse const &);
 
-	virtual void	execute(Network &network);
+	virtual int	execute(Network &network);
 };
 
 std::ostream	&operator<<(std::ostream &o, ActionExpulse const &i);

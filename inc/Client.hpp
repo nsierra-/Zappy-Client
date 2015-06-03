@@ -2,7 +2,7 @@
 //             .'         `.
 //            :             :        File       : Client.hpp
 //           :               :       Creation   : 2015-05-21 00:43:58
-//           :      _/|      :       Last Edit  : 2015-06-02 19:48:52
+//           :      _/|      :       Last Edit  : 2015-06-04 01:19:25
 //            :   =/_/      :        Author     : nsierra-
 //             `._/ |     .'         Mail       : nsierra-@student.42.fr
 //          (   /  ,|...-'
@@ -26,9 +26,7 @@
 /*
 ** TODO NOE
 ** 
-** - constantes pour les noms de pierres, messages du serveur
 ** - classe IA
-** - classe inventaire
 */
 
 class Network;
@@ -86,7 +84,6 @@ class	Client
 	void					_loadServerInfos(const std::string &);
 	void					_forkstem(void);
 	void					_ia(void);
-	// int						_inInventory(const std::string &, size_t = 1);
 	int						_compos(int);
 	void					_composFind(int);
 	void					_search(void);

@@ -33,7 +33,13 @@ std::ostream	&operator<<(std::ostream &o, ActionExpulse const &i)
 	return o;
 }
 
-void	ActionExpulse::execute(Network &network)
+int	ActionExpulse::execute(Network &network)
 {
-	network.send(EXPULSE);
+	std::string	ret;
+
+	ret = network.send(EXPULSE);
+
+	if (ret == Network::MSG_SUCCESS)
+		return _successIndex;
+	return _failIndex;
 }

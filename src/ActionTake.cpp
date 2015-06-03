@@ -40,7 +40,7 @@ std::ostream	&operator<<(std::ostream &o, ActionTake const & i)
 	return o;
 }
 
-void	ActionTake::execute(Network &network)
+int	ActionTake::execute(Network &network)
 {
 	std::string			message = IAction::TAKE;
 	std::string			data;
@@ -49,5 +49,9 @@ void	ActionTake::execute(Network &network)
 	data = network.send(message);
 
 	if (data == Network::MSG_SUCCESS)
+	{
 		_inventory.add(_obj, 1);
+		return _successIndex;
+	}
+	return _failIndex;
 }

@@ -34,7 +34,7 @@ std::ostream	&operator<<(std::ostream &o, ActionIncantation const &i)
 	return o;
 }
 
-void	ActionIncantation::execute(Network &network)
+int	ActionIncantation::execute(Network &network)
 {
 	std::string			data;
 
@@ -43,6 +43,13 @@ void	ActionIncantation::execute(Network &network)
 	if (data == Network::MSG_ELEVATION)
 	{
 		data = network.recieve();
-		_client->setLevel(_client->getLevel() + 1);
+
+		if (data.find(Network::MSG_CURRENT_LVL) != 0)
+			return _failIndex;
+
+		data = data.substr(Network::MSG_CURRENT_LVL.size());
+		_client->setLevel(std::stoi(data));
+		return _successIndex;
 	}
+	return _failIndex;
 }
