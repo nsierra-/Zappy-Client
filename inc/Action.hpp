@@ -16,8 +16,11 @@
 
 # include <string>
 # include "Network.hpp"
+# include "Client.hpp"
+# include "eDirection.hpp"
 
 class Network;
+class Client;
 
 class	Action
 {
@@ -33,6 +36,8 @@ public:
 	static const std::string	SEE;
 	static const std::string	TAKE;
 
+	static Action	*create(const std::string &);
+
 					Action();
 	virtual 		~Action(void) {};
 
@@ -40,11 +45,12 @@ public:
 
 	void			setSuccessIndex(int);
 	void			setFailureIndex(int);
-	int				getSuccessIndex(void);
-	int				getFailureIndex(void);
+	int				getSuccessIndex(void) const;
+	int				getFailureIndex(void) const;
 
-
+	static Client	*client;
 protected:
+
 	int				_successIndex;
 	int				_failIndex;
 };

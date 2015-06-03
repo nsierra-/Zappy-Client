@@ -1,14 +1,14 @@
 #ifndef ACTIONBROADCAST_HEADER
 #define ACTIONBROADCAST_HEADER
 
-#include <string>
-#include <iostream>
-#include "Action.hpp"
+# include <string>
+# include <iostream>
+# include "Action.hpp"
 
 class ActionBroadcast : public Action
 {
 public:
-	ActionBroadcast(const std::string &);
+	ActionBroadcast();
 	ActionBroadcast(ActionBroadcast const &);
 	virtual ~ActionBroadcast();
 	std::string	toString() const;
@@ -16,9 +16,10 @@ public:
 	ActionBroadcast	&operator=(ActionBroadcast const &);
 
 	virtual int			execute(Network &);
+	void				setMessage(const std::string &);
 
 private:
-	const std::string		_msg;
+	std::string			_msg;
 };
 
 std::ostream	&operator<<(std::ostream &o, ActionBroadcast const &i);

@@ -11,7 +11,7 @@ class Inventory;
 class ActionTake : public Action
 {
 public:
-	ActionTake(const std::string &, Inventory &);
+	ActionTake(Inventory &);
 	ActionTake(ActionTake const &);
 	virtual ~ActionTake();
 	std::string	toString() const;
@@ -19,6 +19,7 @@ public:
 	ActionTake	&operator=(ActionTake const &);
 
 	virtual int	execute(Network &);
+	void		setObject(const std::string &);
 
 private:
 	std::string		_obj;

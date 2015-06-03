@@ -1,7 +1,7 @@
 #include "ActionSee.hpp"
 
 ActionSee::ActionSee(Client *client) :
-_client(client)
+	_client(client)
 {
 
 }
@@ -21,7 +21,7 @@ std::string		ActionSee::toString() const
 	return "ActionSee";
 }
 
-ActionSee&		ActionSee::operator=(ActionSee const &copy)
+ActionSee		&ActionSee::operator=(ActionSee const &copy)
 {
 	if (this != &copy)
 		_client = copy._client;

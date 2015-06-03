@@ -52,3 +52,5 @@ int				ActionMove::execute(Network &network)
 		return _successIndex;
 	return _failIndex;
 }
+
+void			ActionMove::setDirection(enum eDirection dir) { _dir = dir; }

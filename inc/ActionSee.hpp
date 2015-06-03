@@ -4,6 +4,9 @@
 #include <string>
 #include <iostream>
 #include "Action.hpp"
+#include "Client.hpp"
+
+class Client;
 
 class ActionSee : public Action
 {

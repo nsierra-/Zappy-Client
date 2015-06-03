@@ -85,6 +85,7 @@ Client::Client(unsigned int port, std::string teamName, std::string hostName) :
 	_ofs.open(name.str().c_str());
 
 	_inventory.add(Inventory::FOOD, 10);
+	Action::client = this;
 }
 
 Client::Client(Client const &src) :
@@ -106,34 +107,34 @@ Client				&Client::operator=(Client const &rhs)
 	return *this;
 }
 
-Action				*Client::_createAction(const std::string &action)
-{
-	if (action == Action::SEE)
-		return new ActionSee(this);
-	if (action == Action::EXPULSE)
-		return new ActionExpulse();
-	if (action == Action::INCANTATION)
-		return new ActionIncantation(this);
-	if (action == Action::EGG)
-		return new ActionEgg();
-	return nullptr;
-}
+// Action				*Client::_createAction(const std::string &action)
+// {
+// 	if (action == Action::SEE)
+// 		return new ActionSee(this);
+// 	if (action == Action::EXPULSE)
+// 		return new ActionExpulse();
+// 	if (action == Action::INCANTATION)
+// 		return new ActionIncantation(this);
+// 	if (action == Action::EGG)
+// 		return new ActionEgg();
+// 	return nullptr;
+// }
 
-Action				*Client::_createAction(enum eDirection dir)
-{
-	return new ActionMove(dir);
-}
+// Action				*Client::_createAction(enum eDirection dir)
+// {
+// 	return new ActionMove(dir);
+// }
 
-Action				*Client::_createAction(const std::string &action, const std::string &str)
-{
-	if (action == Action::TAKE)
-		return new ActionTake(str, _inventory);
-	if (action == Action::DROP)
-		return new ActionDrop(str, _inventory);
-	if (action == Action::BROADCAST)
-		return new ActionBroadcast(str);
-	return nullptr;
-}
+// Action				*Client::_createAction(const std::string &action, const std::string &str)
+// {
+// 	if (action == Action::TAKE)
+// 		return new ActionTake(str, _inventory);
+// 	if (action == Action::DROP)
+// 		return new ActionDrop(str, _inventory);
+// 	if (action == Action::BROADCAST)
+// 		return new ActionBroadcast(str);
+// 	return nullptr;
+// }
 
 bool				Client::loop(void)
 {
@@ -209,7 +210,7 @@ void				Client::_ia(void)
 		{
 			if (_level > 1)
 				_search();
-			_actions.push_back(_createAction("incantation"));
+			_actions.push_back(Action::create(Action::INCANTATION));
 		}
 		else
 			_composFind(_level);
@@ -291,7 +292,9 @@ int					Client::_compos(int level)
 		{
 			if (_inventory.has(kv.first, kv.second))
 			{
-				_actions.push_back(_createAction(Action::DROP, kv.first));
+				ActionDrop	*a = static_cast<ActionDrop *>(Action::create(Action::DROP));
+				a->setObject(kv.first);
+				_actions.push_back(a);
 			}
 			else
 			{
@@ -301,7 +304,7 @@ int					Client::_compos(int level)
 		}
 	}
 	if (!ok)
-		_actions.push_back(_createAction(Action::SEE));
+		_actions.push_back(Action::create(Action::SEE));
 	return (ok == true);
 }
 
@@ -353,12 +356,17 @@ std::string    		Client::_sendTeamInfo(void)
 	}
 }
 
-unsigned int	Client::getLevel() const
+unsigned int		Client::getLevel() const
 {
 	return _level;
 }
 
-void			Client::setLevel(unsigned int val)
+void				Client::setLevel(unsigned int val)
 {
 	_level = val;
+}
+
+Inventory			&Client::getInventory(void)
+{
+	return _inventory;
 }
