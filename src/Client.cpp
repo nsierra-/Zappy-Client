@@ -149,8 +149,6 @@ bool				Client::loop(void)
 	while (~0)
 	{
 		_ia();
-
-			// _network->recieve();
 	}
 	return true;
 }
@@ -208,9 +206,8 @@ void				Client::_ia(void)
 {
 	if (_compos(_level) != 0 && _inventory["nourriture"] > 4)
 	{
-		if (_level > 1)
-			_search();
-		_actions.push_back(Action::create(Action::INCANTATION)); //maj de la carte -> remove item used
+		if (_search(_level) != 0)
+			_actions.push_back(Action::create(Action::INCANTATION)); //maj de la carte -> remove item used
 	}
 	else
 		_composFind(_level);
@@ -236,8 +233,10 @@ void				Client::_playMove(void)
 	_actions.clear();
 }
 
-void				Client::_search(void)
+int					Client::_search(int level)
 {
+	if (level == 1)
+		return 1;
 	// std::string dir;
 	// int 		players;
 
@@ -247,12 +246,36 @@ void				Client::_search(void)
 	// 	dir = _network->recieve();
 
 	// }
+	return 0;
 }
 
 
 void				Client::_composFind(int level)
 {
-	(void)level;
+	std::map<std::string, size_t>	&compo = _totems[level];
+	int i = 0;
+
+	printDebug("Enter Composfind");
+	if (fov[0].size() > 0)
+	{
+		while (i < (level * 4))
+		{
+			printDebug("Composfind");
+			for (auto &kv : compo)
+			{
+				printDebug(kv.first);
+				if (fov[i].find(kv.first))
+				{
+					//_pathFinding(start_case, end_case);
+					ActionMove	*a = static_cast<ActionMove *>(Action::create(Action::MOVE_FORWARD));
+					printDebug("add move foward");
+					_actions.push_back(a);
+				}
+			}
+			i++;
+		}
+	}
+	
 	//if nourriture take nourriture
 	//take compos for all level
 }
@@ -261,15 +284,22 @@ int					Client::_compos(int level)
 {
 	std::map<std::string, size_t>	&compo = _totems[level];
 	bool							ok = false;
+	std::stringstream toto;
 
 	if (fov[0].size() > 0) // check si la case n'est pas trop vielle
 	{
 		printDebug("check la case");
+		printDebug(fov[0]);
 		for (auto &kv : compo)
 		{
 			printDebug(kv.first);
-			if (fov[0].find(kv.first))
+			toto << "find = " << fov[0].find(kv.first) << std::endl;
+			printDebug(toto.str());
+			if (fov[0].find(kv.first) != std::string::npos)
+			{
+				printDebug("compos find on case");
 				ok = true;
+			}
 			else
 			{
 				ok = false;
@@ -300,9 +330,11 @@ int					Client::_compos(int level)
 	{
 		printDebug("add see");
 		_actions.push_back(Action::create(Action::SEE));
+		return 0;
 	}
-	//mise en deprecated de la case
-	return (ok == true);
+	if (ok)
+		return 1;
+	return 0;
 }
 
 void				Client::_forkstem(void)
@@ -357,6 +389,12 @@ unsigned int		Client::getLevel() const
 {
 	return _level;
 }
+
+std::vector<std::map<std::string, size_t> >		Client::getTotems()
+{
+	return _totems;
+}
+
 
 void				Client::setLevel(unsigned int val)
 {
