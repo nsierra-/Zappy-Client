@@ -2,7 +2,7 @@
 //             .'         `.
 //            :             :        File       : Inventory.cpp
 //           :               :       Creation   : 2015-06-02 18:59:27
-//           :      _/|      :       Last Edit  : 2015-06-04 01:32:09
+//           :      _/|      :       Last Edit  : 2015-06-08 01:14:00
 //            :   =/_/      :        Author     : nsierra-
 //             `._/ |     .'         Mail       : nsierra-@student.42.fr
 //          (   /  ,|...-'
@@ -11,6 +11,7 @@
 //     __/  -'/  `-._ `\_\__
 //   /jgs     /-'`  `\   \  \-
 
+#include <sstream>
 #include "Inventory.hpp"
 
 const std::string	Inventory::LINEMATE 	= "linemate";
@@ -54,7 +55,15 @@ size_t 		Inventory::operator[](const std::string & obj)
 
 std::string	Inventory::toString() const
 {
-	return "Inventory";
+	std::stringstream ss;
+
+	ss << "[";
+	for (auto &kv : _data)
+	{
+		ss << kv.first << " " << kv.second << ", ";
+	}
+	ss << "]";
+	return ss.str();
 }
 
 std::ostream	&operator<<(std::ostream &o, Inventory const &i)

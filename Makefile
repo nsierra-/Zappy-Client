@@ -2,7 +2,7 @@
 #             .'         `.
 #            :             :   File       : Makefile
 #           :               :  Creation   : 2015-05-17 02:38:33
-#           :      _/|      :  Last Edit  : 2015-06-02 19:12:09
+#           :      _/|      :  Last Edit  : 2015-06-08 01:38:05
 #            :   =/_/      :   Author     : nsierra-
 #             `._/ |     .'    Mail       : nsierra-@student.42.fr
 #          (   /  ,|...-'
@@ -28,7 +28,8 @@ CLASSES				=	Inventory \
 						ActionIncantation \
 						ActionMove \
 						ActionSee \
-						ActionTake
+						ActionTake \
+						Map
 
 INTERF_SRC_SUFFIX	=	.cpp
 INTERF_INC_SUFFIX	=	.hpp

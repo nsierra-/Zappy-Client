@@ -2,7 +2,7 @@
 //             .'         `.
 //            :             :        File       : Client.hpp
 //           :               :       Creation   : 2015-05-21 00:43:58
-//           :      _/|      :       Last Edit  : 2015-06-04 01:49:59
+//           :      _/|      :       Last Edit  : 2015-06-08 00:59:02
 //            :   =/_/      :        Author     : nsierra-
 //             `._/ |     .'         Mail       : nsierra-@student.42.fr
 //          (   /  ,|...-'
@@ -18,6 +18,7 @@
 # include <map>
 # include <regex>
 # include <fstream>
+# include "Map.hpp"
 # include "Network.hpp"
 # include "Inventory.hpp"
 # include "Action.hpp"
@@ -54,9 +55,10 @@ public:
 	// Gestion de la map perso beta
 
 	size_t					getPlayerX() const;
+
 	std::map<size_t, std::string>  fov;
 	//vector ??
-	std::map<size_t, std::map<size_t, std::string> > _map; //inventaire ??
+	//std::map<size_t, std::map<size_t, std::string> > _map; //inventaire ??
 
 	std::vector<std::map<std::string, size_t> >	getTotems();
 	void					printDebug(const std::string &);
@@ -66,6 +68,7 @@ private:
 	static std::vector<std::map<std::string, size_t> >	_totems;
 
 	const std::string		_teamName;
+	Map						_map;
 	Network					*_network;
 	unsigned int			_level;
 	unsigned int			_availableConnections;
