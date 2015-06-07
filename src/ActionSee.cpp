@@ -47,7 +47,6 @@ int				ActionSee::execute(Network &network)
 		std::sregex_iterator next(ret.begin(), ret.end(), re);
 		std::sregex_iterator end;
 
-
 		while (next != end)
 		{
 			std::smatch match = *next;
@@ -57,7 +56,6 @@ int				ActionSee::execute(Network &network)
 			tmp.resize(tmp.size() - 1);
 			//add to map
 			_client->fov[i] = tmp;
-			_client->printDebug(tmp);
 			next++;
 			i++;
 		}

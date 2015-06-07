@@ -28,56 +28,56 @@ const std::regex	Client::_serverInfosFormat("(\\d+)\\n(\\d+) (\\d+)\\n");
 
 std::vector<std::map<std::string, size_t> >	Client::_totems =
 {
-		{
-			{  }
-		},
-		{
-			{ Inventory::LINEMATE, 1 }
-		},
-		{
-			{ Inventory::LINEMATE, 1 },
-			{ Inventory::DERAUMERE, 1 },\
-			{ Inventory::SIBUR, 1 },
-		},
-		{
-			{ Inventory::LINEMATE, 2 },
-			{ Inventory::SIBUR, 1 },
-			{ Inventory::PHIRAS, 2 },
-		},
-		{
-			{ Inventory::LINEMATE, 1 },
-			{ Inventory::DERAUMERE, 1 },
-			{ Inventory::SIBUR, 2 },
-			{ Inventory::PHIRAS, 1 },
-		},
-		{
-			{ Inventory::LINEMATE, 1 },
-			{ Inventory::DERAUMERE, 2 },
-			{ Inventory::SIBUR, 1 },
-			{ Inventory::MENDIANE, 3 },
-		},
-		{
-			{ Inventory::LINEMATE, 1 },
-			{ Inventory::DERAUMERE, 2 },
-			{ Inventory::SIBUR, 3 },
-			{ Inventory::PHIRAS, 1 },
-		},
-		{
-			{ Inventory::LINEMATE, 2 },
-			{ Inventory::DERAUMERE, 2 },
-			{ Inventory::SIBUR, 2 },
-			{ Inventory::MENDIANE, 2 },
-			{ Inventory::PHIRAS, 2 },
-			{ Inventory::THYSTAME, 1 },
-		},
+	{
+		{  }
+	},
+	{
+		{ Inventory::LINEMATE, 1 }
+	},
+	{
+		{ Inventory::LINEMATE, 1 },
+		{ Inventory::DERAUMERE, 1 },
+		{ Inventory::SIBUR, 1 }
+	},
+	{
+		{ Inventory::LINEMATE, 2 },
+		{ Inventory::SIBUR, 1 },
+		{ Inventory::PHIRAS, 2 }
+	},
+	{
+		{ Inventory::LINEMATE, 1 },
+		{ Inventory::DERAUMERE, 1 },
+		{ Inventory::SIBUR, 2 },
+		{ Inventory::PHIRAS, 1 }
+	},
+	{
+		{ Inventory::LINEMATE, 1 },
+		{ Inventory::DERAUMERE, 2 },
+		{ Inventory::SIBUR, 1 },
+		{ Inventory::MENDIANE, 3 }
+	},
+	{
+		{ Inventory::LINEMATE, 1 },
+		{ Inventory::DERAUMERE, 2 },
+		{ Inventory::SIBUR, 3 },
+		{ Inventory::PHIRAS, 1 }
+	},
+	{
+		{ Inventory::LINEMATE, 2 },
+		{ Inventory::DERAUMERE, 2 },
+		{ Inventory::SIBUR, 2 },
+		{ Inventory::MENDIANE, 2 },
+		{ Inventory::PHIRAS, 2 },
+		{ Inventory::THYSTAME, 1 }
 	}
+}
 ;
 
 
 Client::Client(unsigned int port, std::string teamName, std::string hostName) :
-	_teamName(teamName),
-	_network(new Network(this, port, hostName)),
-	_level(1)
+_teamName(teamName),
+_network(new Network(this, port, hostName)),
+_level(1)
 {
 
 	std::stringstream name;
@@ -141,17 +141,17 @@ bool				Client::loop(void)
 	std::string msg;
 
 	_loadServerInfos(_sendTeamInfo());
-		while (strtol(_network->send("connect_nbr").c_str(), NULL, 10))
-		{
-			printDebug("FORKSTEM");
-			_forkstem();
-		}
-		while (~0)
-		{
-			_ia();
+	while (strtol(_network->send("connect_nbr").c_str(), NULL, 10))
+	{
+		printDebug("FORKSTEM");
+		_forkstem();
+	}
+	while (~0)
+	{
+		_ia();
 
 			// _network->recieve();
-		}
+	}
 	return true;
 }
 
@@ -206,15 +206,15 @@ void				Client::recieveBroadcast(const std::string &msg)
 
 void				Client::_ia(void)
 {
-		if (_compos(_level) && _inventory["nourriture"] > 4)
-		{
-			if (_level > 1)
-				_search();
-			_actions.push_back(Action::create(Action::INCANTATION));
-		}
-		else
-			_composFind(_level);
-		_playMove();
+	if (_compos(_level) != 0 && _inventory["nourriture"] > 4)
+	{
+		if (_level > 1)
+			_search();
+		_actions.push_back(Action::create(Action::INCANTATION));
+	}
+	else
+		_composFind(_level);
+	_playMove();
 }
 
 void				Client::_playMove(void)
@@ -225,9 +225,7 @@ void				Client::_playMove(void)
 
 	while (i >= 0 && static_cast<size_t>(i) < max)
 	{
-		// printDebug(std::to_string(i));
 		tmp = _actions[static_cast<size_t>(i)]->execute(*_network);
-
 		if (tmp == -2)
 			break ;
 		i = tmp == -1 ? i + 1 : tmp;
@@ -236,15 +234,6 @@ void				Client::_playMove(void)
 	for (auto &a : _actions)
 		delete a;
 	_actions.clear();
-	// int			tmp;
-
-	// tmp = 0;
-	// for (auto &action : _actions)
-	// {
-	// 	tmp = tmp != -1 ? action->execute(*_network) : -1;
-	// 	delete action;
-	// }
-	// _actions.clear();
 }
 
 void				Client::_search(void)
@@ -270,13 +259,16 @@ void				Client::_composFind(int level)
 
 int					Client::_compos(int level)
 {
-	std::map<std::string, size_t> &compo = _totems[level];
-	bool		ok = true;
+	std::map<std::string, size_t>	&compo = _totems[level];
+	bool							ok = false;
 
-	if (fov[0].size())
+	printDebug(fov[0]);
+	if (fov[0].size() > 0)
 	{
+		printDebug("check la case");
 		for (auto &kv : compo)
-			{
+		{
+			printDebug(kv.first);
 			if (fov[0].find(kv.first))
 				ok = true;
 			else
@@ -288,8 +280,10 @@ int					Client::_compos(int level)
 	}
 	if (!ok)
 	{
+		printDebug("check inventaire");
 		for (auto &kv : compo)
 		{
+			printDebug(kv.first);
 			if (_inventory.has(kv.first, kv.second))
 			{
 				ActionDrop	*a = static_cast<ActionDrop *>(Action::create(Action::DROP));
@@ -303,8 +297,11 @@ int					Client::_compos(int level)
 			}
 		}
 	}
-	if (!ok)
+	if (!ok && fov[0].size() == 0) // add check if pas bouger // case deja connu
+	{
+		printDebug("add see");
 		_actions.push_back(Action::create(Action::SEE));
+	}
 	return (ok == true);
 }
 
