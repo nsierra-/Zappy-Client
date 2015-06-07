@@ -18,7 +18,8 @@ INC_DIR				=	inc/
 
 CLASS_SRC_SUFFIX	=	.cpp
 CLASS_INC_SUFFIX	=	.hpp
-CLASSES				=	Client \
+CLASSES				=	Inventory \
+						Client \
 						Network \
 						ActionBroadcast \
 						ActionDrop \
@@ -27,8 +28,7 @@ CLASSES				=	Client \
 						ActionIncantation \
 						ActionMove \
 						ActionSee \
-						ActionTake \
-						Inventory
+						ActionTake
 
 INTERF_SRC_SUFFIX	=	.cpp
 INTERF_INC_SUFFIX	=	.hpp
