@@ -58,7 +58,7 @@ public:
 	//vector ??
 	std::map<size_t, std::map<size_t, std::string> > _map; //inventaire ??
 
-
+	std::vector<std::map<std::string, size_t> >	getTotems();
 	void					printDebug(const std::string &);
 
 private:
@@ -83,7 +83,7 @@ private:
 	void					_ia(void);
 	int						_compos(int);
 	void					_composFind(int);
-	void					_search(void);
+	int						_search(int);
 	void					_playMove(void);
 };
 
