@@ -210,7 +210,7 @@ void				Client::_ia(void)
 	{
 		if (_level > 1)
 			_search();
-		_actions.push_back(Action::create(Action::INCANTATION));
+		_actions.push_back(Action::create(Action::INCANTATION)); //maj de la carte -> remove item used
 	}
 	else
 		_composFind(_level);
@@ -262,8 +262,7 @@ int					Client::_compos(int level)
 	std::map<std::string, size_t>	&compo = _totems[level];
 	bool							ok = false;
 
-	printDebug(fov[0]);
-	if (fov[0].size() > 0)
+	if (fov[0].size() > 0) // check si la case n'est pas trop vielle
 	{
 		printDebug("check la case");
 		for (auto &kv : compo)
@@ -302,6 +301,7 @@ int					Client::_compos(int level)
 		printDebug("add see");
 		_actions.push_back(Action::create(Action::SEE));
 	}
+	//mise en deprecated de la case
 	return (ok == true);
 }
 
